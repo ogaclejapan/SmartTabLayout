@@ -1,0 +1,175 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'license'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+    resourcePrefix 'stl_'
+
+    defaultConfig {
+        minSdkVersion 4
+        targetSdkVersion COMPILE_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile "com.android.support:support-v4:22.0.0"
+}
+
+license {
+
+    sourceSets {
+        main.java.srcDirs = android.sourceSets.main.java.srcDirs
+        main.resources.srcDirs = android.sourceSets.main.resources.srcDirs
+    }
+
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = DEVELOPER_ID
+
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                name ARTIFACT_NAME
+                description ARTIFACT_DESCRIPTION
+                url SITE_URL
+
+                licenses {
+                    license {
+                        name LICENCE_NAME
+                        url LICENCE_URL
+                        distribution LICENCE_DIST
+                    }
+                }
+
+                developers {
+                    developer {
+                        id DEVELOPER_ID
+                        name DEVELOPER_NAME
+                        email DEVELOPER_EMAIL
+                    }
+                }
+                issueManagement {
+                    system ISSUE_SYSTEM
+                    url ISSUE_URL
+                }
+
+                scm {
+                    connection SCM_CONNECTION
+                    developerConnection SCM_DEV_CONNECTION
+                    url SCM_URL
+
+                }
+            }
+        }
+    }
+}
+
+afterEvaluate { project ->
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.srcDirs
+        options {
+            links "http://docs.oracle.com/javase/7/docs/api/"
+            linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
+        }
+        classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
+    }
+
+}
+
+def getNexusUser() {
+    return hasProperty('NEXUS_USER') ? NEXUS_USER : ""
+}
+
+def getNexusPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
+def getBintrayUser() {
+    return hasProperty('BINTRAY_USER') ? BINTRAY_USER : ""
+}
+
+def getBintrayApiKey() {
+    return hasProperty('BINTRAY_APIKEY') ? BINTRAY_APIKEY : ""
+}
+
+def getGpgPassphrase() {
+    return hasProperty('BINTRAY_GPG_PASSPHRASE') ? BINTRAY_GPG_PASSPHRASE : ""
+}
+
+bintray {
+
+    user = bintrayUser
+    key = bintrayApiKey
+
+    configurations = ['archives']
+
+    dryRun = false
+    publish = true
+
+    pkg {
+        repo = "maven"
+        name = ARTIFACT_NAME
+        desc = ARTIFACT_DESCRIPTION
+        websiteUrl = SITE_URL
+        issueTrackerUrl = ISSUE_URL
+        vcsUrl = SCM_URL
+        licenses = ["Apache-2.0"]
+        labels = ['android']
+        publicDownloadNumbers = true
+
+        version {
+            gpg {
+                sign = true
+                passphrase = gpgPassphrase
+            }
+
+            mavenCentralSync {
+                sync = false
+                user = nexusUser
+                password = nexusPassword
+            }
+
+        }
+
+    }
+
+}
