@@ -1,6 +1,12 @@
 package com.ogaclejapan.smarttablayout.demo;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
@@ -23,7 +29,53 @@ public enum Demo {
 
     CUSTOM_TAB_COLORS(R.string.demo_title_custom_tab_colors, R.layout.demo_custom_tab_colors),
 
-    INDICATOR_TRICK(R.string.demo_title_indicator_trick, R.layout.demo_indicator_trick);
+    CUSTOM_TAB_ICONS(R.string.demo_title_custom_tab_icons, R.layout.demo_custom_tab_icons) {
+        @Override
+        public int[] tabs() {
+            return new int[] {
+                    R.string.demo_tab_no_title,
+                    R.string.demo_tab_no_title,
+                    R.string.demo_tab_no_title,
+                    R.string.demo_tab_no_title
+            };
+        }
+        @Override
+        public void setup(SmartTabLayout layout) {
+            super.setup(layout);
+
+            final LayoutInflater inflater = LayoutInflater.from(layout.getContext());
+            final Resources res = layout.getContext().getResources();
+
+            layout.setCustomTabView(new SmartTabLayout.TabProvider() {
+                @Override
+                public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
+                    ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon, container, false);
+                    switch (position) {
+                        case 0:
+                            icon.setImageDrawable(res.getDrawable(R.drawable.ic_home_white_24dp));
+                            break;
+                        case 1:
+                            icon.setImageDrawable(res.getDrawable(R.drawable.ic_search_white_24dp));
+                            break;
+                        case 2:
+                            icon.setImageDrawable(res.getDrawable(R.drawable.ic_person_white_24dp));
+                            break;
+                        case 3:
+                            icon.setImageDrawable(res.getDrawable(R.drawable.ic_flash_on_white_24dp));
+                            break;
+                        default:
+                            throw new IllegalStateException("Invalid position: " + position);
+                    }
+                    return icon;
+                }
+            });
+        }
+    },
+
+    INDICATOR_TRICK1(R.string.demo_title_indicator_trick1, R.layout.demo_indicator_trick1),
+
+    INDICATOR_TRICK2(R.string.demo_title_indicator_trick2, R.layout.demo_indicator_trick2)
+    ;
 
     public final int titleResId;
     public final int layoutResId;

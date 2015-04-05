@@ -28,6 +28,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -71,6 +72,19 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     }
 
+    /**
+     * Create the custom tabs in the tab layout. Set with
+     * {@link #setCustomTabView(com.ogaclejapan.smarttablayout.SmartTabLayout.TabProvider)}
+     */
+    public interface TabProvider {
+
+        /**
+         * @return Return the View of {@code position} for the Tabs
+         */
+        View createTabView(ViewGroup container, int position, PagerAdapter adapter);
+
+    }
+
     private static final boolean DEFAULT_DISTRIBUTE_EVENLY = false;
 
     private static final int TITLE_OFFSET_DIPS = 24;
@@ -88,11 +102,11 @@ public class SmartTabLayout extends HorizontalScrollView {
     private int mTabViewTextHorizontalPadding;
     private int mTabViewTextMinWidth;
 
-    private int mTabViewLayoutId;
-    private int mTabViewTextViewId;
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
+
+    private TabProvider mTabProvider;
 
     private boolean mDistributeEvenly;
 
@@ -123,8 +137,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         int textHorizontalPadding = (int) (TAB_VIEW_PADDING_DIPS * density);
         int textMinWidth = (int) (TAB_VIEW_TEXT_MIN_WIDTH * density);
         boolean distributeEvenly = DEFAULT_DISTRIBUTE_EVENLY;
-        int textLayoutId = NO_ID;
-        int textViewId = NO_ID;
+        int customTabLayoutId = NO_ID;
+        int customTabTextViewId = NO_ID;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
         textAllCaps = a.getBoolean(R.styleable.stl_SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
@@ -132,8 +146,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         textSize = a.getDimension(R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
         textHorizontalPadding = a.getDimensionPixelSize(R.styleable.stl_SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
         textMinWidth = a.getDimensionPixelSize(R.styleable.stl_SmartTabLayout_stl_defaultTabTextMinWidth, textMinWidth);
-        textLayoutId = a.getResourceId(R.styleable.stl_SmartTabLayout_stl_customTabTextLayoutId, textLayoutId);
-        textViewId = a.getResourceId(R.styleable.stl_SmartTabLayout_stl_customTabTextViewId, textViewId);
+        customTabLayoutId = a.getResourceId(R.styleable.stl_SmartTabLayout_stl_customTabTextLayoutId, customTabLayoutId);
+        customTabTextViewId = a.getResourceId(R.styleable.stl_SmartTabLayout_stl_customTabTextViewId, customTabTextViewId);
         distributeEvenly = a.getBoolean(R.styleable.stl_SmartTabLayout_stl_distributeEvenly, distributeEvenly);
         a.recycle();
 
@@ -143,9 +157,11 @@ public class SmartTabLayout extends HorizontalScrollView {
         mTabViewTextSize = textSize;
         mTabViewTextHorizontalPadding = textHorizontalPadding;
         mTabViewTextMinWidth = textMinWidth;
-        mTabViewLayoutId = textLayoutId;
-        mTabViewTextViewId = textViewId;
         mDistributeEvenly = distributeEvenly;
+
+        if (customTabLayoutId != NO_ID) {
+            setCustomTabView(customTabLayoutId, customTabTextViewId);
+        }
 
         mTabStrip = new SmartTabStrip(context, attrs);
 
@@ -155,6 +171,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         }
 
         addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+
     }
 
     @Override
@@ -229,8 +246,16 @@ public class SmartTabLayout extends HorizontalScrollView {
      * @param textViewId id of the {@link android.widget.TextView} in the inflated view
      */
     public void setCustomTabView(int layoutResId, int textViewId) {
-        mTabViewLayoutId = layoutResId;
-        mTabViewTextViewId = textViewId;
+        mTabProvider = new SimpleTabProvider(getContext(), layoutResId, textViewId);
+    }
+
+    /**
+     * Set the custom layout to be inflated for the tab views.
+     *
+     * @param provider {@link TabProvider}
+     */
+    public void setCustomTabView(TabProvider provider) {
+        mTabProvider = provider;
     }
 
     /**
@@ -241,19 +266,29 @@ public class SmartTabLayout extends HorizontalScrollView {
         mTabStrip.removeAllViews();
 
         mViewPager = viewPager;
-        if (viewPager != null) {
+        if (viewPager != null && viewPager.getAdapter() != null) {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
             populateTabStrip();
         }
     }
 
     /**
+     * Returns the view at the specified position in the tabs.
+     * @param position the position at which to get the view from
+     * @return the view at the specified position or null if the position does not exist within the tabs
+     */
+    public View getTabAt(int position) {
+        return mTabStrip.getChildAt(position);
+    }
+
+    /**
      * Create a default view to be used for tabs. This is called if a custom tab view is not set via
      * {@link #setCustomTabView(int, int)}.
      */
-    protected TextView createDefaultTabView(Context context) {
-        TextView textView = new TextView(context);
+    protected TextView createDefaultTabView(CharSequence title) {
+        TextView textView = new TextView(getContext());
         textView.setGravity(Gravity.CENTER);
+        textView.setText(title);
         textView.setTextColor(mTabViewTextColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabViewTextSize);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
@@ -290,30 +325,14 @@ public class SmartTabLayout extends HorizontalScrollView {
         final PagerAdapter adapter = mViewPager.getAdapter();
         final OnClickListener tabClickListener = new TabClickListener();
 
-        final LayoutInflater inflater = LayoutInflater.from(getContext());
         for (int i = 0; i < adapter.getCount(); i++) {
-            View tabView = null;
-            TextView tabTitleView = null;
 
-            if (mTabViewLayoutId != NO_ID) {
-                // If there is a custom tab view layout id set, try and inflate it
-                tabView = inflater.inflate(mTabViewLayoutId, mTabStrip, false);
-            }
-
-            if (mTabViewTextViewId != NO_ID && tabView != null) {
-                tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
-            }
+            final View tabView = (mTabProvider == null)
+                    ? createDefaultTabView(adapter.getPageTitle(i))
+                    : mTabProvider.createTabView(mTabStrip, i, adapter);
 
             if (tabView == null) {
-                tabView = createDefaultTabView(getContext());
-            }
-
-            if (tabTitleView == null && TextView.class.isInstance(tabView)) {
-                tabTitleView = (TextView) tabView;
-            }
-
-            if (tabTitleView == null) {
-                throw new IllegalStateException("tabTitleView not found.");
+                throw new IllegalStateException("tabView is null.");
             }
 
             if (mDistributeEvenly) {
@@ -322,9 +341,7 @@ public class SmartTabLayout extends HorizontalScrollView {
                 lp.weight = 1;
             }
 
-            tabTitleView.setText(adapter.getPageTitle(i));
             tabView.setOnClickListener(tabClickListener);
-
             mTabStrip.addView(tabView);
 
             if (i == mViewPager.getCurrentItem()) {
@@ -433,5 +450,44 @@ public class SmartTabLayout extends HorizontalScrollView {
             }
         }
     }
+
+    private static class SimpleTabProvider implements TabProvider {
+
+        private final LayoutInflater mInflater;
+        private final int mTabViewLayoutId;
+        private final int mTabViewTextViewId;
+
+        private SimpleTabProvider(Context context, int layoutResId, int textViewId) {
+            mInflater = LayoutInflater.from(context);
+            mTabViewLayoutId = layoutResId;
+            mTabViewTextViewId = textViewId;
+        }
+
+        @Override
+        public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
+            View tabView = null;
+            TextView tabTitleView = null;
+
+            if (mTabViewLayoutId != NO_ID) {
+                tabView = mInflater.inflate(mTabViewLayoutId, container, false);
+            }
+
+            if (mTabViewTextViewId != NO_ID && tabView != null) {
+                tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
+            }
+
+            if (tabTitleView == null && TextView.class.isInstance(tabView)) {
+                tabTitleView = (TextView) tabView;
+            }
+
+            if (tabTitleView != null) {
+                tabTitleView.setText(adapter.getPageTitle(position));
+            }
+
+            return tabView;
+        }
+
+    }
+
 
 }
