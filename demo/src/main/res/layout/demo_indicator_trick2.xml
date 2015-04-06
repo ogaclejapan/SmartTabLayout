@@ -1,0 +1,20 @@
+<com.ogaclejapan.smarttablayout.SmartTabLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/viewpagertab"
+    android:layout_width="wrap_content"
+    android:layout_height="8dp"
+    android:layout_marginBottom="4dp"
+    android:layout_gravity="bottom|center_horizontal"
+    app:stl_indicatorInterpolation="linear"
+    app:stl_indicatorColor="@color/accent"
+    app:stl_indicatorThickness="8dp"
+    app:stl_indicatorCornerRadius="4dp"
+    app:stl_underlineThickness="0dp"
+    app:stl_underlineColor="@color/transparent"
+    app:stl_dividerThickness="0dp"
+    app:stl_dividerColor="@color/transparent"
+    app:stl_customTabTextLayoutId="@layout/custom_tab_circle"
+    />
+
+
