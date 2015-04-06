@@ -10,6 +10,7 @@ This library has been added some features and utilities based on [android-Slidin
 
 ![SmartTabLayout Demo1][demo1_gif] ![SmartTabLayout Demo2][demo2_gif]
 ![SmartTabLayout Demo3][demo3_gif] ![SmartTabLayout Demo4][demo4_gif]
+![SmartTabLayout Demo5][demo5_gif] ![SmartTabLayout Demo6][demo6_gif]
 
 
 Try out the sample application on the Play Store.
@@ -24,13 +25,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.0.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.1.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.0.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.0.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.0@aar'
 }
 ```
 
@@ -139,6 +140,39 @@ There are several attributes you can set:
 
 *__Notes:__ Both 'stl_indicatorAlwaysInCenter' and 'stl_distributeEvenly' if it is set to true, it will throw UnsupportedOperationException.*
 
+# How to customize the tab
+
+The customization of tab There are three ways.
+
+* Customize the attribute
+* SmartTabLayout#setCustomTabView(int layoutResId, int textViewId)
+* SmartTabLayout#setCustomTabView(TabProvider provider)
+
+If set the TabProvider, can build a view for each tab.
+
+```java
+
+public class SmartTabLayout extends HorizontalScrollView {
+
+    //...
+
+    /**
+     * Create the custom tabs in the tab layout. Set with
+     * {@link #setCustomTabView(com.ogaclejapan.smarttablayout.SmartTabLayout.TabProvider)}
+     */
+    public interface TabProvider {
+
+        /**
+         * @return Return the View of {@code position} for the Tabs
+         */
+        View createTabView(ViewGroup container, int position, PagerAdapter adapter);
+
+    }
+
+    //...
+}
+
+```
 
 # How to use the utility
 
@@ -232,6 +266,8 @@ limitations under the License.
 [demo2_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo2.gif
 [demo3_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo3.gif
 [demo4_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo4.gif
+[demo5_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo5.gif
+[demo6_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo6.gif
 [demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/icon.png
 [googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
