@@ -199,7 +199,7 @@ viewPager.setAdapter(adapter);
 
 public void onPageSelected(int position) {
 
-  //.instantiateItem() from until .destoryItem() is called it will be able to get the View of page.
+  //.instantiateItem() from until .destroyItem() is called it will be able to get the View of page.
   View page = adapter.getPage(position);
 
 }
