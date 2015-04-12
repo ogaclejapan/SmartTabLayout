@@ -1,5 +1,5 @@
 # SmartTabLayout
-[![Maven Central][maven_central_badge_svg]][maven_central_badge_app] [![Android Arsenal][android_arsenal_badge_svg]][android_arsenal_badge_link]
+[![Maven Central][maven_central_badge_svg]][maven_central_badge_app] [![Android Arsenal][android_arsenal_badge_svg]][android_arsenal_badge_link] [![Android Weekly][android_weekly_badge_svg]][android_weekly_badge_link]
 
 ![icon][demo_icon]
 
@@ -275,5 +275,7 @@ limitations under the License.
 [maven_central_badge_app]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.smarttablayout/library
 [android_arsenal_badge_svg]: https://img.shields.io/badge/Android%20Arsenal-SmartTabLayout-brightgreen.svg?style=flat
 [android_arsenal_badge_link]: http://android-arsenal.com/details/1/1683
+[android_weekly_badge_svg]: https://img.shields.io/badge/AndroidWeekly-%23148-blue.svg
+[android_weekly_badge_link]: http://androidweekly.net/issues/issue-148
 [qiitanium]: https://github.com/ogaclejapan/Qiitanium
 [google_slidingtabbasic]: https://github.com/googlesamples/android-SlidingTabsBasic
