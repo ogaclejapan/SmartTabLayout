@@ -162,7 +162,7 @@ bintray {
             }
 
             mavenCentralSync {
-                sync = false
+                sync = true
                 user = nexusUser
                 password = nexusPassword
             }

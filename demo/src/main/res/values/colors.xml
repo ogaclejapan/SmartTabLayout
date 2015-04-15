@@ -10,6 +10,9 @@
     <color name="text_enabled">#FFFFFFFF</color>
     <color name="text_disabled">#4DFFFFFF</color>
 
+    <color name="icon_enabled">#FFFFFFFF</color>
+    <color name="icon_disabled">#FF63727B</color>
+
     <color name="light_blue_500">#03A9F4</color>
     <color name="cyan_500">#00BCD4</color>
     <color name="teal_500">#009688</color>

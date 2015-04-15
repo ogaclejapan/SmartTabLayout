@@ -13,7 +13,9 @@
     <string name="demo_title_always_in_center">Always In Center</string>
     <string name="demo_title_custom_tab_text">Custom Tab Text</string>
     <string name="demo_title_custom_tab_colors">Custom Tab Colors</string>
-    <string name="demo_title_indicator_trick">Indicator Thickness Trick</string>
+    <string name="demo_title_custom_tab_icons">Custom Tab Icons</string>
+    <string name="demo_title_indicator_trick1">Indicator Thickness Trick 1</string>
+    <string name="demo_title_indicator_trick2">Indicator Thickness Trick 2</string>
 
     <string name="demo_tab_1">Cupcake</string>
     <string name="demo_tab_2">Donut</string>
@@ -25,5 +27,7 @@
     <string name="demo_tab_8">Jelly Bean</string>
     <string name="demo_tab_9">KitKat</string>
     <string name="demo_tab_10">Lollipop</string>
+
+    <string name="demo_tab_no_title">No Title</string>
 
 </resources>
