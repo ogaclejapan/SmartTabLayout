@@ -25,13 +25,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.1.1@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.1@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.1@aar'
 }
 ```
 
