@@ -8,7 +8,7 @@
     android:gravity="center"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:background="@drawable/custom_tab"
+    android:background="?attr/selectableItemBackground"
     >
 
 </TextView>
