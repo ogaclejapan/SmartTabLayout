@@ -17,6 +17,7 @@
 package com.ogaclejapan.smarttablayout;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -97,7 +98,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     private int mTitleOffset;
 
     private boolean mTabViewTextAllCaps;
-    private int mTabViewTextColor;
+    private ColorStateList mTabViewTextColors;
     private float mTabViewTextSize;
     private int mTabViewTextHorizontalPadding;
     private int mTabViewTextMinWidth;
@@ -132,7 +133,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         final float density = dm.density;
 
         boolean textAllCaps = TAB_VIEW_TEXT_ALL_CAPS;
-        int textColor = TAB_VIEW_TEXT_COLOR;
+        ColorStateList textColors;
         float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP, dm);
         int textHorizontalPadding = (int) (TAB_VIEW_PADDING_DIPS * density);
         int textMinWidth = (int) (TAB_VIEW_TEXT_MIN_WIDTH * density);
@@ -142,7 +143,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
         textAllCaps = a.getBoolean(R.styleable.stl_SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
-        textColor = a.getColor(R.styleable.stl_SmartTabLayout_stl_defaultTabTextColor, textColor);
+        textColors = a.getColorStateList(R.styleable.stl_SmartTabLayout_stl_defaultTabTextColor);
         textSize = a.getDimension(R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
         textHorizontalPadding = a.getDimensionPixelSize(R.styleable.stl_SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
         textMinWidth = a.getDimensionPixelSize(R.styleable.stl_SmartTabLayout_stl_defaultTabTextMinWidth, textMinWidth);
@@ -153,7 +154,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
         mTitleOffset = (int) (TITLE_OFFSET_DIPS * density);
         mTabViewTextAllCaps = textAllCaps;
-        mTabViewTextColor = textColor;
+        mTabViewTextColors = (textColors != null) ? textColors : ColorStateList.valueOf(TAB_VIEW_TEXT_COLOR);
         mTabViewTextSize = textSize;
         mTabViewTextHorizontalPadding = textHorizontalPadding;
         mTabViewTextMinWidth = textMinWidth;
@@ -289,7 +290,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         TextView textView = new TextView(getContext());
         textView.setGravity(Gravity.CENTER);
         textView.setText(title);
-        textView.setTextColor(mTabViewTextColor);
+        textView.setTextColor(mTabViewTextColors);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabViewTextSize);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
         textView.setLayoutParams(new LinearLayout.LayoutParams(
