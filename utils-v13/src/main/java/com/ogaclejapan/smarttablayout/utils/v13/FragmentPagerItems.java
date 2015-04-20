@@ -60,6 +60,11 @@ public class FragmentPagerItems extends PagerItems<FragmentPagerItem> {
             return this;
         }
 
+        public Creator add(String title, Class<? extends Fragment> clazz) {
+            mItems.add(FragmentPagerItem.of(title, clazz));
+            return this;
+        }
+
         public Creator add(FragmentPagerItem item) {
             mItems.add(item);
             return this;
