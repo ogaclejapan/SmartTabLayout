@@ -38,13 +38,15 @@ public class ViewPagerItems extends PagerItems<ViewPagerItem> {
         }
 
         public Creator add(@StringRes int title, @LayoutRes int resource) {
-            mItems.add(ViewPagerItem.of(mItems.getContext().getString(title), resource));
-            return this;
+            return add(ViewPagerItem.of(mItems.getContext().getString(title), resource));
         }
 
         public Creator add(@StringRes int title, float width, @LayoutRes int resource) {
-            mItems.add(ViewPagerItem.of(mItems.getContext().getString(title), width, resource));
-            return this;
+            return add(ViewPagerItem.of(mItems.getContext().getString(title), width, resource));
+        }
+
+        public Creator add(CharSequence title, @LayoutRes int resource) {
+            return add(ViewPagerItem.of(title, resource));
         }
 
         public Creator add(ViewPagerItem item) {
