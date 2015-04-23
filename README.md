@@ -25,13 +25,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.1.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.1.2@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.2@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.2@aar'
 }
 ```
 
@@ -190,7 +190,7 @@ but implemented functionality is the same.
 
 ViewPagerItemAdapter adapter = new ViewPagerItemAdapter(ViewPagerItems.with(this)
         .add(R.string.title, R.layout.page)
-        .add(ViewPagerItem.of("title", R.layout.page))
+        .add("title", R.layout.page)
         .create());
 
 viewPager.setAdapter(adapter);
@@ -221,7 +221,7 @@ FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
         getSupportFragmentManager(), FragmentPagerItems.with(this)
         .add(R.string.title, PageFragment.class),
         .add(R.string.title, WithArgumentsPageFragment.class, new Bundler().putString("key", "value").get()),
-        .add(FragmentPagerItem.of("title", PageFragment.class))
+        .add("title", PageFragment.class)
         .create());
 
 viewPager.setAdapter(adapter);
