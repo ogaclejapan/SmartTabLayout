@@ -206,6 +206,15 @@ public class SmartTabLayout extends HorizontalScrollView {
         mTabStrip.setCustomTabColorizer(tabColorizer);
     }
 
+    /**
+     * Set the color used for styling the tab text. This will need to be called prior to calling
+     * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
+     *
+     * @param color to use for tab text
+     */
+    public void setDefaultTabTextColor(int color) {
+        mTabViewTextColors = ColorStateList.valueOf(color);
+    }
 
     /**
      * Sets the colors used for styling the tab text. This will need to be called prior to calling
