@@ -1,3 +1,7 @@
+# Version 1.1.3
+
+* Allow to set the background on default tab #13
+
 # Version 1.1.2
 
 * Added setter for tab text colors #10
