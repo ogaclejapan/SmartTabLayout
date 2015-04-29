@@ -54,6 +54,7 @@ This should usually be placed above the ViewPager it represents.
     app:stl_underlineThickness="1dp"
     app:stl_dividerColor="#4D000000"
     app:stl_dividerThickness="1dp"
+    app:stl_defaultTabBackground="?attr/selectableItemBackground"
     app:stl_defaultTabTextAllCaps="true"
     app:stl_defaultTabTextColor="#FC000000"
     app:stl_defaultTabTextSize="12sp"
@@ -128,6 +129,7 @@ There are several attributes you can set:
 | stl_dividerColor | Color of the dividers between tabs |
 | stl_dividerColors | Multiple colors of the dividers between tabs, can set the color for each tab |
 | stl_dividerThickness | Thickness of the divider |
+| stl_defaultTabBackground | Background drawable of each tab. In general it set the StateListDrawable |
 | stl_defaultTabTextAllCaps | If set to true, all tab titles will be upper case, default true |
 | stl_defaultTabTextColor | Text color of the tab that was included by default |
 | stl_defaultTabTextSize | Text size of the tab that was included by default |

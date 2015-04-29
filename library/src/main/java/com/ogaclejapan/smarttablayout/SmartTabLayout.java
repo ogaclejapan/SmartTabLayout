@@ -97,6 +97,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     private int mTitleOffset;
 
+    private int mTabViewBackgroundResId;
     private boolean mTabViewTextAllCaps;
     private ColorStateList mTabViewTextColors;
     private float mTabViewTextSize;
@@ -132,6 +133,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         final DisplayMetrics dm = getResources().getDisplayMetrics();
         final float density = dm.density;
 
+        int tabBackgroundResId = NO_ID;
         boolean textAllCaps = TAB_VIEW_TEXT_ALL_CAPS;
         ColorStateList textColors;
         float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP, dm);
@@ -142,6 +144,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         int customTabTextViewId = NO_ID;
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
+        tabBackgroundResId = a.getResourceId(R.styleable.stl_SmartTabLayout_stl_defaultTabBackground, tabBackgroundResId);
         textAllCaps = a.getBoolean(R.styleable.stl_SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
         textColors = a.getColorStateList(R.styleable.stl_SmartTabLayout_stl_defaultTabTextColor);
         textSize = a.getDimension(R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
@@ -153,6 +156,7 @@ public class SmartTabLayout extends HorizontalScrollView {
         a.recycle();
 
         mTitleOffset = (int) (TITLE_OFFSET_DIPS * density);
+        mTabViewBackgroundResId = tabBackgroundResId;
         mTabViewTextAllCaps = textAllCaps;
         mTabViewTextColors = (textColors != null) ? textColors : ColorStateList.valueOf(TAB_VIEW_TEXT_COLOR);
         mTabViewTextSize = textSize;
@@ -316,7 +320,9 @@ public class SmartTabLayout extends HorizontalScrollView {
         textView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (mTabViewBackgroundResId != NO_ID) {
+            textView.setBackgroundResource(mTabViewBackgroundResId);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // If we're running on Honeycomb or newer, then we can use the Theme's
             // selectableItemBackground to ensure that the View has a pressed state
             TypedValue outValue = new TypedValue();
