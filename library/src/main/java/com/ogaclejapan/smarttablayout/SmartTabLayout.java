@@ -190,6 +190,16 @@ public class SmartTabLayout extends HorizontalScrollView {
         }
     }
 
+    private OnTabClickListener mOnTabClickListener;
+
+    /**
+     * Set the behavior of the tab click feedback.
+     *
+     * @param tabclickListener {@link com.ogaclejapan.smarttablayout.SmartTabLayout.OnTabClickListener}
+     */
+    public void setOnTabClickListener(OnTabClickListener tabclickListener){
+        mOnTabClickListener = tabclickListener;
+    }
     /**
      * Set the behavior of the Indicator scrolling feedback.
      *
@@ -472,6 +482,9 @@ public class SmartTabLayout extends HorizontalScrollView {
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
                     mViewPager.setCurrentItem(i);
+                    if(mOnTabClickListener != null) {
+                        mOnTabClickListener.onClick(v, i);
+                    }
                     return;
                 }
             }
@@ -516,5 +529,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     }
 
-
+    public interface OnTabClickListener {
+        void onClick(View v, int position);
+    }
 }
