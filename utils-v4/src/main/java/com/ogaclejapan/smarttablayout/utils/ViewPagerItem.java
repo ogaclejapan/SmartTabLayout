@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,23 +22,23 @@ import android.view.ViewGroup;
 
 public class ViewPagerItem extends PagerItem {
 
-    private final int mResource;
+  private final int resource;
 
-    protected ViewPagerItem(CharSequence title, float width, @LayoutRes int resource) {
-        super(title, width);
-        mResource = resource;
-    }
+  protected ViewPagerItem(CharSequence title, float width, @LayoutRes int resource) {
+    super(title, width);
+    this.resource = resource;
+  }
 
-    public static ViewPagerItem of(CharSequence title, @LayoutRes int resource) {
-        return of(title, DEFAULT_WIDTH, resource);
-    }
+  public static ViewPagerItem of(CharSequence title, @LayoutRes int resource) {
+    return of(title, DEFAULT_WIDTH, resource);
+  }
 
-    public static ViewPagerItem of(CharSequence title, float width, @LayoutRes int resource) {
-        return new ViewPagerItem(title, width, resource);
-    }
+  public static ViewPagerItem of(CharSequence title, float width, @LayoutRes int resource) {
+    return new ViewPagerItem(title, width, resource);
+  }
 
-    public View initiate(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(mResource, container, false);
-    }
+  public View initiate(LayoutInflater inflater, ViewGroup container) {
+    return inflater.inflate(resource, container, false);
+  }
 
 }
