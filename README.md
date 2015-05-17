@@ -180,8 +180,8 @@ public class SmartTabLayout extends HorizontalScrollView {
 
 Utility has two types available to suit the Android support library.
 
-* utils-v4 library contains the PagerAdapter implementation class for android.support.v4.app.Fragment.
-* utils-v13 library contains the PagerAdapter implementation class for android.app.Fragment.
+* utils-v4 library contains the PagerAdapter implementation class for _android.support.v4.app.Fragment_
+* utils-v13 library contains the PagerAdapter implementation class for _android.app.Fragment_
 
 The two libraries have different Android support libraries that depend,
 but implemented functionality is the same.
