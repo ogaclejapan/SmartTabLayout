@@ -45,6 +45,7 @@ This should usually be placed above the ViewPager it represents.
     android:layout_width="match_parent"
     android:layout_height="48dp"
     app:stl_indicatorAlwaysInCenter="false"
+    app:stl_indicatorWithoutPadding="false"
     app:stl_indicatorInFront="false"
     app:stl_indicatorInterpolation="smart"
     app:stl_indicatorColor="#40C4FF"
@@ -118,6 +119,7 @@ There are several attributes you can set:
 | attr | description |
 |:---|:---|
 | stl_indicatorAlwaysInCenter | If set to true, active tab is always displayed in center (Like Newsstand google app), default false |
+| stl_indicatorWithoutPadding | If set to true, draw the indicator without padding of tab, default false |
 | stl_indicatorInFront | Draw the indicator in front of the underline, default false |
 | stl_indicatorInterpolation | Behavior of the indicator: 'linear' or 'smart' |
 | stl_indicatorColor | Color of the indicator |

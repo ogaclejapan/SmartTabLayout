@@ -2,6 +2,7 @@
 <resources>
   <declare-styleable name="stl_SmartTabLayout">
     <attr name="stl_indicatorAlwaysInCenter" format="boolean"/>
+    <attr name="stl_indicatorWithoutPadding" format="boolean"/>
     <attr name="stl_indicatorInFront" format="boolean"/>
     <attr name="stl_indicatorInterpolation" format="enum">
       <enum name="smart" value="0"/>

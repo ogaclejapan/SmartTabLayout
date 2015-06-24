@@ -1,6 +1,7 @@
 package com.ogaclejapan.smarttablayout;
 
 import android.support.v4.view.MarginLayoutParamsCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,11 +16,25 @@ final class Utils {
   }
 
   static int getRight(View v) {
-    return (v == null) ? 0 : v.getRight();
+    return getRight(v, false);
+  }
+
+  static int getRight(View v, boolean withoutPadding) {
+    if (v == null) {
+      return 0;
+    }
+    return (withoutPadding) ? v.getRight() - ViewCompat.getPaddingEnd(v) : v.getRight();
   }
 
   static int getLeft(View v) {
-    return (v == null) ? 0 : v.getLeft();
+    return getLeft(v, false);
+  }
+
+  static int getLeft(View v, boolean withoutPadding) {
+    if (v == null) {
+      return 0;
+    }
+    return (withoutPadding) ? v.getLeft() + ViewCompat.getPaddingStart(v) : v.getLeft();
   }
 
   static int getMarginStart(View v) {

@@ -44,10 +44,12 @@ class SmartTabStrip extends LinearLayout {
   private static final float DEFAULT_DIVIDER_HEIGHT = 0.5f;
   private static final boolean DEFAULT_INDICATOR_IN_CENTER = false;
   private static final boolean DEFAULT_INDICATOR_IN_FRONT = false;
+  private static final boolean DEFAULT_INDICATOR_WITHOUT_PADDING = false;
 
   private final int bottomBorderThickness;
   private final Paint bottomBorderPaint;
   private final RectF indicatorRectF = new RectF();
+  private final boolean indicatorWithoutPadding;
   private final boolean indicatorAlwaysInCenter;
   private final boolean indicatorInFront;
   private final int indicatorThickness;
@@ -73,6 +75,7 @@ class SmartTabStrip extends LinearLayout {
     context.getTheme().resolveAttribute(android.R.attr.colorForeground, outValue, true);
     final int themeForegroundColor = outValue.data;
 
+    boolean indicatorWithoutPadding = DEFAULT_INDICATOR_WITHOUT_PADDING;
     boolean indicatorInFront = DEFAULT_INDICATOR_IN_FRONT;
     boolean indicatorAlwaysInCenter = DEFAULT_INDICATOR_IN_CENTER;
     int indicationInterpolatorId = SmartTabIndicationInterpolator.ID_SMART;
@@ -89,6 +92,8 @@ class SmartTabStrip extends LinearLayout {
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.stl_SmartTabLayout);
     indicatorAlwaysInCenter = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_indicatorAlwaysInCenter, indicatorAlwaysInCenter);
+    indicatorWithoutPadding = a.getBoolean(
+        R.styleable.stl_SmartTabLayout_stl_indicatorWithoutPadding, indicatorWithoutPadding);
     indicatorInFront = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_indicatorInFront, indicatorInFront);
     indicationInterpolatorId = a.getInt(
@@ -130,6 +135,7 @@ class SmartTabStrip extends LinearLayout {
     this.bottomBorderPaint.setColor(underlineColor);
 
     this.indicatorAlwaysInCenter = indicatorAlwaysInCenter;
+    this.indicatorWithoutPadding = indicatorWithoutPadding;
     this.indicatorInFront = indicatorInFront;
     this.indicatorThickness = indicatorThickness;
     this.indicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -217,9 +223,9 @@ class SmartTabStrip extends LinearLayout {
 
     // Thick colored underline below the current selection
     if (childCount > 0) {
-      View selectedTitle = getChildAt(selectedPosition);
-      int left = selectedTitle.getLeft();
-      int right = selectedTitle.getRight();
+      View selectedTab = getChildAt(selectedPosition);
+      int left = Utils.getLeft(selectedTab, indicatorWithoutPadding);
+      int right = Utils.getRight(selectedTab, indicatorWithoutPadding);
       int color = tabColorizer.getIndicatorColor(selectedPosition);
       float thickness = indicatorThickness;
 
@@ -234,10 +240,10 @@ class SmartTabStrip extends LinearLayout {
         float rightOffset = indicationInterpolator.getRightEdge(selectionOffset);
         float thicknessOffset = indicationInterpolator.getThickness(selectionOffset);
 
-        View nextTitle = getChildAt(selectedPosition + 1);
-        left = (int) (leftOffset * nextTitle.getLeft() +
+        View nextTab = getChildAt(selectedPosition + 1);
+        left = (int) (leftOffset * Utils.getLeft(nextTab, indicatorWithoutPadding) +
             (1.0f - leftOffset) * left);
-        right = (int) (rightOffset * nextTitle.getRight() +
+        right = (int) (rightOffset * Utils.getRight(nextTab, indicatorWithoutPadding) +
             (1.0f - rightOffset) * right);
         thickness = thickness * thicknessOffset;
       }
