@@ -73,6 +73,8 @@ public enum Demo {
     }
   },
 
+  CUSTOM_TAB_MARGIN(R.string.demo_title_custom_tab_margin, R.layout.demo_custom_tab_margin),
+
   INDICATOR_TRICK1(R.string.demo_title_indicator_trick1, R.layout.demo_indicator_trick1),
 
   INDICATOR_TRICK2(R.string.demo_title_indicator_trick2, R.layout.demo_indicator_trick2);

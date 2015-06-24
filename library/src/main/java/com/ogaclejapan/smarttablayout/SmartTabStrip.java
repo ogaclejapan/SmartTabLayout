@@ -153,7 +153,7 @@ class SmartTabStrip extends LinearLayout {
    * Blend {@code color1} and {@code color2} using the given ratio.
    *
    * @param ratio of which to blend. 1.0 will return {@code color1}, 0.5 will give an even blend,
-   *              0.0 will return {@code color2}.
+   * 0.0 will return {@code color2}.
    */
   private static int blendColors(int color1, int color2, float ratio) {
     final float inverseRation = 1f - ratio;
@@ -198,14 +198,6 @@ class SmartTabStrip extends LinearLayout {
 
   boolean isIndicatorAlwaysInCenter() {
     return indicatorAlwaysInCenter;
-  }
-
-  int getChildMeasuredWidthAt(int index) {
-    return getChildAt(index).getMeasuredWidth();
-  }
-
-  int getChildWidthAt(int index) {
-    return getChildAt(index).getWidth();
   }
 
   @Override
@@ -274,8 +266,9 @@ class SmartTabStrip extends LinearLayout {
     int separatorTop = (height - dividerHeightPx) / 2;
     for (int i = 0; i < childCount - 1; i++) {
       View child = getChildAt(i);
+      int separatorX = Utils.getRight(child) + Utils.getMarginEnd(child);
       dividerPaint.setColor(tabColorizer.getDividerColor(i));
-      canvas.drawLine(child.getRight(), separatorTop, child.getRight(),
+      canvas.drawLine(separatorX, separatorTop, separatorX,
           separatorTop + dividerHeightPx, dividerPaint);
     }
   }

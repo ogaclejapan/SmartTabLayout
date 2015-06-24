@@ -162,8 +162,10 @@ public class SmartTabLayout extends HorizontalScrollView {
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
     if (tabStrip.isIndicatorAlwaysInCenter() && getChildCount() > 0) {
-      int left = (w - tabStrip.getChildMeasuredWidthAt(0)) / 2;
-      int right = (w - tabStrip.getChildMeasuredWidthAt(getChildCount() - 1)) / 2;
+      View firstTab = tabStrip.getChildAt(0);
+      View lastTab = tabStrip.getChildAt(getChildCount() - 1);
+      int left = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
+      int right = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
       setPadding(left, getPaddingTop(), right, getPaddingBottom());
       setClipToPadding(false);
     }
@@ -373,11 +375,14 @@ public class SmartTabLayout extends HorizontalScrollView {
       return;
     }
 
-    View selectedChild = tabStrip.getChildAt(tabIndex);
-    if (selectedChild != null) {
-      int targetScrollX = selectedChild.getLeft() + positionOffset;
+    View selectedTab = tabStrip.getChildAt(tabIndex);
+    if (selectedTab != null) {
+      int targetScrollX = Utils.getLeft(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
       if (tabStrip.isIndicatorAlwaysInCenter()) {
-        targetScrollX -= (tabStrip.getChildWidthAt(0) - selectedChild.getWidth()) / 2;
+        View firstTab = tabStrip.getChildAt(0);
+        int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
+        int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
+        targetScrollX -= (first - selected) / 2;
       } else if (tabIndex > 0 || positionOffset > 0) {
         // If we're not at the first child and are mid-scroll, make sure we obey the offset
         targetScrollX -= titleOffset;
@@ -469,15 +474,16 @@ public class SmartTabLayout extends HorizontalScrollView {
 
       tabStrip.onViewPagerPageChanged(position, positionOffset);
 
-      View selectedTitle = tabStrip.getChildAt(position);
-      int extraOffset = (selectedTitle != null)
-          ? (int) (positionOffset * selectedTitle.getWidth())
-          : 0;
+      View selectedTab = tabStrip.getChildAt(position);
+      int widthPlusMargin = Utils.getWidth(selectedTab) + Utils.getMarginHorizontally(selectedTab);
+      int extraOffset = (int) (positionOffset * widthPlusMargin);
 
       if (0f < positionOffset && positionOffset < 1f
           && tabStrip.isIndicatorAlwaysInCenter()) {
-        int current = tabStrip.getChildWidthAt(position) / 2;
-        int next = tabStrip.getChildWidthAt(position + 1) / 2;
+        View currentTab = tabStrip.getChildAt(position);
+        View nextTab = tabStrip.getChildAt(position + 1);
+        int current = Utils.getWidth(currentTab) / 2 + Utils.getMarginEnd(currentTab);
+        int next = Utils.getWidth(nextTab) / 2 + Utils.getMarginStart(nextTab);
         extraOffset = Math.round(positionOffset * (current + next));
       }
 
