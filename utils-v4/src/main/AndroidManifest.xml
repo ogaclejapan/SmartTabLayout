@@ -1,4 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ogaclejapan.smarttablayout.utils">
+<manifest package="com.ogaclejapan.smarttablayout.utils">
 
 </manifest>

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,15 +21,14 @@ import java.util.ArrayList;
 
 public abstract class PagerItems<T extends PagerItem> extends ArrayList<T> {
 
-    private final Context mContext;
+  private final Context context;
 
-    protected PagerItems(Context context) {
-        mContext = context;
-    }
+  protected PagerItems(Context context) {
+    this.context = context;
+  }
 
-    public Context getContext() {
-        return mContext;
-    }
-
+  public Context getContext() {
+    return context;
+  }
 
 }

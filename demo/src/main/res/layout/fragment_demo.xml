@@ -1,23 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
     >
 
-    <TextView
-        android:id="@+id/item_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Page:"
-        />
+  <TextView
+      android:id="@+id/item_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Page:"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      />
 
-    <TextView
-        android:id="@+id/item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="80sp"
-        />
+  <TextView
+      android:id="@+id/item_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="80sp"
+      />
 
 </LinearLayout>

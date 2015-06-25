@@ -8,6 +8,8 @@
     android:gravity="center"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:textColor="@color/custom_tab"
     android:textSize="14sp"
     >

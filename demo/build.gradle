@@ -1,42 +1,42 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+  compileSdkVersion COMPILE_SDK_VERSION as int
+  buildToolsVersion BUILD_TOOLS_VERSION
 
-    defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion COMPILE_SDK_VERSION as int
-        versionCode VERSION_CODE as int
-        versionName VERSION_NAME
-    }
+  defaultConfig {
+    minSdkVersion 10
+    targetSdkVersion COMPILE_SDK_VERSION as int
+    versionCode VERSION_CODE as int
+    versionName VERSION_NAME
+  }
 
-    def secretFile = file("${rootDir}/secret.gradle")
-    if (secretFile.exists()) {
-        apply from: secretFile.absolutePath
-        signingConfigs {
-            release {
-                storeFile project.ext.storeFile
-                storePassword project.ext.storePassword
-                keyAlias project.ext.keyAlias
-                keyPassword project.ext.keyPassword
-            }
-        }
+  def secretFile = file("${rootDir}/secret.gradle")
+  if (secretFile.exists()) {
+    apply from: secretFile.absolutePath
+    signingConfigs {
+      release {
+        storeFile project.ext.storeFile
+        storePassword project.ext.storePassword
+        keyAlias project.ext.keyAlias
+        keyPassword project.ext.keyPassword
+      }
     }
+  }
 
-    buildTypes {
-        release {
-            if (secretFile.exists()) {
-                signingConfig signingConfigs.release
-            }
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+  buildTypes {
+    release {
+      if (secretFile.exists()) {
+        signingConfig signingConfigs.release
+      }
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
 }
 
 dependencies {
-    compile project(':library')
-    compile project(':utils-v4')
-    compile 'com.android.support:appcompat-v7:22.0.0'
+  compile project(':library')
+  compile project(':utils-v4')
+  compile 'com.android.support:appcompat-v7:22.0.0'
 }

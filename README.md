@@ -25,13 +25,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.1.3@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.3@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.0@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.3@aar'
 }
 ```
 
@@ -45,6 +45,7 @@ This should usually be placed above the ViewPager it represents.
     android:layout_width="match_parent"
     android:layout_height="48dp"
     app:stl_indicatorAlwaysInCenter="false"
+    app:stl_indicatorWithoutPadding="false"
     app:stl_indicatorInFront="false"
     app:stl_indicatorInterpolation="smart"
     app:stl_indicatorColor="#40C4FF"
@@ -54,6 +55,7 @@ This should usually be placed above the ViewPager it represents.
     app:stl_underlineThickness="1dp"
     app:stl_dividerColor="#4D000000"
     app:stl_dividerThickness="1dp"
+    app:stl_defaultTabBackground="?attr/selectableItemBackground"
     app:stl_defaultTabTextAllCaps="true"
     app:stl_defaultTabTextColor="#FC000000"
     app:stl_defaultTabTextSize="12sp"
@@ -117,6 +119,7 @@ There are several attributes you can set:
 | attr | description |
 |:---|:---|
 | stl_indicatorAlwaysInCenter | If set to true, active tab is always displayed in center (Like Newsstand google app), default false |
+| stl_indicatorWithoutPadding | If set to true, draw the indicator without padding of tab, default false |
 | stl_indicatorInFront | Draw the indicator in front of the underline, default false |
 | stl_indicatorInterpolation | Behavior of the indicator: 'linear' or 'smart' |
 | stl_indicatorColor | Color of the indicator |
@@ -128,6 +131,7 @@ There are several attributes you can set:
 | stl_dividerColor | Color of the dividers between tabs |
 | stl_dividerColors | Multiple colors of the dividers between tabs, can set the color for each tab |
 | stl_dividerThickness | Thickness of the divider |
+| stl_defaultTabBackground | Background drawable of each tab. In general it set the StateListDrawable |
 | stl_defaultTabTextAllCaps | If set to true, all tab titles will be upper case, default true |
 | stl_defaultTabTextColor | Text color of the tab that was included by default |
 | stl_defaultTabTextSize | Text size of the tab that was included by default |
@@ -178,8 +182,8 @@ public class SmartTabLayout extends HorizontalScrollView {
 
 Utility has two types available to suit the Android support library.
 
-* utils-v4 library contains the PagerAdapter implementation class for android.support.v4.app.Fragment.
-* utils-v13 library contains the PagerAdapter implementation class for android.app.Fragment.
+* utils-v4 library contains the PagerAdapter implementation class for _android.support.v4.app.Fragment_
+* utils-v13 library contains the PagerAdapter implementation class for _android.app.Fragment_
 
 The two libraries have different Android support libraries that depend,
 but implemented functionality is the same.
@@ -190,7 +194,7 @@ but implemented functionality is the same.
 
 ViewPagerItemAdapter adapter = new ViewPagerItemAdapter(ViewPagerItems.with(this)
         .add(R.string.title, R.layout.page)
-        .add(ViewPagerItem.of("title", R.layout.page))
+        .add("title", R.layout.page)
         .create());
 
 viewPager.setAdapter(adapter);
@@ -221,7 +225,7 @@ FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
         getSupportFragmentManager(), FragmentPagerItems.with(this)
         .add(R.string.title, PageFragment.class),
         .add(R.string.title, WithArgumentsPageFragment.class, new Bundler().putString("key", "value").get()),
-        .add(FragmentPagerItem.of("title", PageFragment.class))
+        .add("title", PageFragment.class)
         .create());
 
 viewPager.setAdapter(adapter);
