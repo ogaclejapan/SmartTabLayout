@@ -11,6 +11,7 @@ This library has been added some features and utilities based on [android-Slidin
 ![SmartTabLayout Demo1][demo1_gif] ![SmartTabLayout Demo2][demo2_gif]
 ![SmartTabLayout Demo3][demo3_gif] ![SmartTabLayout Demo4][demo4_gif]
 ![SmartTabLayout Demo5][demo5_gif] ![SmartTabLayout Demo6][demo6_gif]
+![SmartTabLayout Demo7][demo7_gif]
 
 
 Try out the sample application on the Play Store.
@@ -278,6 +279,7 @@ limitations under the License.
 [demo4_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo4.gif
 [demo5_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo5.gif
 [demo6_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo6.gif
+[demo7_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo7.gif
 [demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/icon.png
 [googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
