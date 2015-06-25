@@ -1,3 +1,9 @@
+# Version 1.2.0
+
+* Support the margin of each tab.
+* Add `stl_indicatorWithoutPadding` and `stl_indicatorGravity` attributes.
+* Add `stl_overlineColor` and `stl_overlineThickness` attributes.
+
 # Version 1.1.3
 
 * Allow to set the background on default tab #13

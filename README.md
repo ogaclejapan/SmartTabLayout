@@ -25,13 +25,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.2.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.2.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.2.0@aar'
 }
 ```
 
@@ -48,9 +48,12 @@ This should usually be placed above the ViewPager it represents.
     app:stl_indicatorWithoutPadding="false"
     app:stl_indicatorInFront="false"
     app:stl_indicatorInterpolation="smart"
+    app:stl_indicatorGravity="bottom"
     app:stl_indicatorColor="#40C4FF"
     app:stl_indicatorThickness="4dp"
     app:stl_indicatorCornerRadius="2dp"
+    app:stl_overlineColor="#4D000000"
+    app:stl_overlineThickness="0dp"
     app:stl_underlineColor="#4D000000"
     app:stl_underlineThickness="1dp"
     app:stl_dividerColor="#4D000000"
