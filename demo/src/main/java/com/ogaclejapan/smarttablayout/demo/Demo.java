@@ -29,7 +29,7 @@ public enum Demo {
 
   CUSTOM_TAB_COLORS(R.string.demo_title_custom_tab_colors, R.layout.demo_custom_tab_colors),
 
-  CUSTOM_TAB_ICONS(R.string.demo_title_custom_tab_icons, R.layout.demo_custom_tab_icons) {
+  CUSTOM_TAB_ICONS1(R.string.demo_title_custom_tab_icons1, R.layout.demo_custom_tab_icons1) {
     @Override
     public int[] tabs() {
       return new int[] {
@@ -50,7 +50,51 @@ public enum Demo {
       layout.setCustomTabView(new SmartTabLayout.TabProvider() {
         @Override
         public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
-          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon, container, false);
+          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon1, container, false);
+          switch (position) {
+            case 0:
+              icon.setImageDrawable(res.getDrawable(R.drawable.ic_home_white_24dp));
+              break;
+            case 1:
+              icon.setImageDrawable(res.getDrawable(R.drawable.ic_search_white_24dp));
+              break;
+            case 2:
+              icon.setImageDrawable(res.getDrawable(R.drawable.ic_person_white_24dp));
+              break;
+            case 3:
+              icon.setImageDrawable(res.getDrawable(R.drawable.ic_flash_on_white_24dp));
+              break;
+            default:
+              throw new IllegalStateException("Invalid position: " + position);
+          }
+          return icon;
+        }
+      });
+    }
+  },
+
+  CUSTOM_TAB_ICONS2(R.string.demo_title_custom_tab_icons2, R.layout.demo_custom_tab_icons2) {
+    @Override
+    public int[] tabs() {
+      return new int[] {
+          R.string.demo_tab_no_title,
+          R.string.demo_tab_no_title,
+          R.string.demo_tab_no_title,
+          R.string.demo_tab_no_title
+      };
+    }
+
+    @Override
+    public void setup(SmartTabLayout layout) {
+      super.setup(layout);
+
+      final LayoutInflater inflater = LayoutInflater.from(layout.getContext());
+      final Resources res = layout.getContext().getResources();
+
+      layout.setCustomTabView(new SmartTabLayout.TabProvider() {
+        @Override
+        public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
+          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon2, container, false);
           switch (position) {
             case 0:
               icon.setImageDrawable(res.getDrawable(R.drawable.ic_home_white_24dp));
@@ -77,7 +121,22 @@ public enum Demo {
 
   INDICATOR_TRICK1(R.string.demo_title_indicator_trick1, R.layout.demo_indicator_trick1),
 
-  INDICATOR_TRICK2(R.string.demo_title_indicator_trick2, R.layout.demo_indicator_trick2);
+  INDICATOR_TRICK2(R.string.demo_title_indicator_trick2, R.layout.demo_indicator_trick2),
+
+  LIKE_MEDIUM_TAG(R.string.demo_title_advanced_medium, R.layout.demo_like_a_medium_tag) {
+    @Override
+    public int[] tabs() {
+      return new int[] {
+          R.string.demo_tab_like_a_medium_top,
+          R.string.demo_tab_like_a_medium_latest
+      };
+    }
+
+    @Override
+    public void startActivity(Context context) {
+      DemoLikeMediumActivity.startActivity(context, this);
+    }
+  };
 
   public final int titleResId;
   public final int layoutResId;

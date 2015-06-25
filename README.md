@@ -122,10 +122,13 @@ There are several attributes you can set:
 | stl_indicatorWithoutPadding | If set to true, draw the indicator without padding of tab, default false |
 | stl_indicatorInFront | Draw the indicator in front of the underline, default false |
 | stl_indicatorInterpolation | Behavior of the indicator: 'linear' or 'smart' |
+| stl_indicatorGravity | Drawing position of the indicator: 'bottom' or 'top' or 'center', default 'bottom' |
 | stl_indicatorColor | Color of the indicator |
 | stl_indicatorColors | Multiple colors of the indicator, can set the color for each tab |
 | stl_indicatorThickness | Thickness of the indicator |
 | stl_indicatorCornerRadius | Radius of rounded corner the indicator |
+| stl_overlineColor | Color of the top line |
+| stl_overlineThickness | Thickness of the top line |
 | stl_underlineColor | Color of the bottom line |
 | stl_underlineThickness | Thickness of the bottom line |
 | stl_dividerColor | Color of the dividers between tabs |

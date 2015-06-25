@@ -4,7 +4,9 @@
   <color name="primary_dark">#142E3C</color>
   <color name="accent">#40C4FF</color>
   <color name="white">#FFFFFFFF</color>
+  <color name="black">#FF000000</color>
   <color name="black_20">#33000000</color>
+  <color name="white_20">#33FFFFFF</color>
   <color name="transparent">#00000000</color>
 
   <color name="text_enabled">#FFFFFFFF</color>
@@ -12,6 +14,9 @@
 
   <color name="icon_enabled">#FFFFFFFF</color>
   <color name="icon_disabled">#FF63727B</color>
+
+  <color name="medium_text_enabled">#FF000000</color>
+  <color name="medium_text_disabled">#4D000000</color>
 
   <color name="light_blue_500">#03A9F4</color>
   <color name="cyan_500">#00BCD4</color>

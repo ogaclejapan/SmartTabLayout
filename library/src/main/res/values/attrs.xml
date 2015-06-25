@@ -8,10 +8,17 @@
       <enum name="smart" value="0"/>
       <enum name="linear" value="1"/>
     </attr>
+    <attr name="stl_indicatorGravity" format="enum">
+      <enum name="bottom" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="center" value="2"/>
+    </attr>
     <attr name="stl_indicatorColor" format="color"/>
     <attr name="stl_indicatorColors" format="reference"/>
     <attr name="stl_indicatorThickness" format="dimension"/>
     <attr name="stl_indicatorCornerRadius" format="dimension"/>
+    <attr name="stl_overlineColor" format="color"/>
+    <attr name="stl_overlineThickness" format="dimension"/>
     <attr name="stl_underlineColor" format="color"/>
     <attr name="stl_underlineThickness" format="dimension"/>
     <attr name="stl_dividerColor" format="color"/>
