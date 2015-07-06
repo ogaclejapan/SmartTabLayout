@@ -1,3 +1,7 @@
+# Version 1.2.1
+
+* Add custom ScrollListener interface #46
+
 # Version 1.2.0
 
 * Support the margin of each tab.
