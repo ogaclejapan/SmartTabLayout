@@ -428,6 +428,19 @@ public class SmartTabLayout extends HorizontalScrollView {
   }
 
   /**
+   * Interface definition for a callback to be invoked when the scroll position of a view changes.
+   */
+  public interface OnScrollChangeListener {
+
+    /**
+     * Called when the scroll position of a view changes.
+     * @param scrollX Current horizontal scroll origin.
+     * @param oldScrollX Previous horizontal scroll origin.
+     */
+    void onScrollChanged(int scrollX, int oldScrollX);
+  }
+
+  /**
    * Create the custom tabs in the tab layout. Set with
    * {@link #setCustomTabView(com.ogaclejapan.smarttablayout.SmartTabLayout.TabProvider)}
    */
@@ -549,10 +562,6 @@ public class SmartTabLayout extends HorizontalScrollView {
         }
       }
     }
-  }
-
-  public interface OnScrollChangeListener {
-    void onScrollChanged(int scrollX, int oldScrollX);
   }
 
 }
