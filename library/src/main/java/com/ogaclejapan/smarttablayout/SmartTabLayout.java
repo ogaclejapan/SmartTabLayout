@@ -160,7 +160,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   }
 
   @Override
-  protected void onScrollChanged(final int l, final int t, final int oldl, final int oldt) {
+  protected void onScrollChanged(int l, int t, int oldl, int oldt) {
     super.onScrollChanged(l, t, oldl, oldt);
     if (onScrollChangeListener != null) {
       onScrollChangeListener.onScrollChanged(l, t, oldl, oldt);
