@@ -77,6 +77,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private int tabViewTextMinWidth;
   private ViewPager viewPager;
   private ViewPager.OnPageChangeListener viewPagerPageChangeListener;
+  private TabScrollListener tabScrollListener;
   private TabProvider tabProvider;
   private boolean distributeEvenly;
 
@@ -156,6 +157,14 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     addView(tabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
+  }
+
+  @Override
+  protected void onScrollChanged(final int l, final int t, final int oldl, final int oldt) {
+    super.onScrollChanged(l, t, oldl, oldt);
+    if (tabScrollListener != null) {
+      tabScrollListener.onScrollChanged(l, t, oldl, oldt);
+    }
   }
 
   @Override
@@ -241,6 +250,14 @@ public class SmartTabLayout extends HorizontalScrollView {
    */
   public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
     viewPagerPageChangeListener = listener;
+  }
+
+  /**
+   * Set {@link com.ogaclejapan.smarttablayout.SmartTabLayout.TabScrollListener} for obtaining values of scrolling.
+   * @param listener the {@link com.ogaclejapan.smarttablayout.SmartTabLayout.TabScrollListener} to set
+   */
+  public void setTabScrollListener(TabScrollListener listener) {
+    tabScrollListener = listener;
   }
 
   /**
@@ -526,6 +543,10 @@ public class SmartTabLayout extends HorizontalScrollView {
         }
       }
     }
+  }
+
+  private interface TabScrollListener {
+    void onScrollChanged(final int l, final int t, final int oldl, final int oldt);
   }
 
 }
