@@ -11,6 +11,7 @@ This library has been added some features and utilities based on [android-Slidin
 ![SmartTabLayout Demo1][demo1_gif] ![SmartTabLayout Demo2][demo2_gif]
 ![SmartTabLayout Demo3][demo3_gif] ![SmartTabLayout Demo4][demo4_gif]
 ![SmartTabLayout Demo5][demo5_gif] ![SmartTabLayout Demo6][demo6_gif]
+![SmartTabLayout Demo7][demo7_gif]
 
 
 Try out the sample application on the Play Store.
@@ -25,13 +26,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.2.1@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.2.1@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.1.3@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.2.1@aar'
 }
 ```
 
@@ -48,9 +49,12 @@ This should usually be placed above the ViewPager it represents.
     app:stl_indicatorWithoutPadding="false"
     app:stl_indicatorInFront="false"
     app:stl_indicatorInterpolation="smart"
+    app:stl_indicatorGravity="bottom"
     app:stl_indicatorColor="#40C4FF"
     app:stl_indicatorThickness="4dp"
     app:stl_indicatorCornerRadius="2dp"
+    app:stl_overlineColor="#4D000000"
+    app:stl_overlineThickness="0dp"
     app:stl_underlineColor="#4D000000"
     app:stl_underlineThickness="1dp"
     app:stl_dividerColor="#4D000000"
@@ -122,10 +126,13 @@ There are several attributes you can set:
 | stl_indicatorWithoutPadding | If set to true, draw the indicator without padding of tab, default false |
 | stl_indicatorInFront | Draw the indicator in front of the underline, default false |
 | stl_indicatorInterpolation | Behavior of the indicator: 'linear' or 'smart' |
+| stl_indicatorGravity | Drawing position of the indicator: 'bottom' or 'top' or 'center', default 'bottom' |
 | stl_indicatorColor | Color of the indicator |
 | stl_indicatorColors | Multiple colors of the indicator, can set the color for each tab |
 | stl_indicatorThickness | Thickness of the indicator |
 | stl_indicatorCornerRadius | Radius of rounded corner the indicator |
+| stl_overlineColor | Color of the top line |
+| stl_overlineThickness | Thickness of the top line |
 | stl_underlineColor | Color of the bottom line |
 | stl_underlineThickness | Thickness of the bottom line |
 | stl_dividerColor | Color of the dividers between tabs |
@@ -272,6 +279,7 @@ limitations under the License.
 [demo4_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo4.gif
 [demo5_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo5.gif
 [demo6_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo6.gif
+[demo7_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo7.gif
 [demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/icon.png
 [googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png

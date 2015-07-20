@@ -77,6 +77,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private int tabViewTextMinWidth;
   private ViewPager viewPager;
   private ViewPager.OnPageChangeListener viewPagerPageChangeListener;
+  private OnScrollChangeListener onScrollChangeListener;
   private TabProvider tabProvider;
   private boolean distributeEvenly;
 
@@ -156,6 +157,14 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     addView(tabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
+  }
+
+  @Override
+  protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+    super.onScrollChanged(l, t, oldl, oldt);
+    if (onScrollChangeListener != null) {
+      onScrollChangeListener.onScrollChanged(l, oldl);
+    }
   }
 
   @Override
@@ -243,6 +252,14 @@ public class SmartTabLayout extends HorizontalScrollView {
    */
   public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
     viewPagerPageChangeListener = listener;
+  }
+
+  /**
+   * Set {@link OnScrollChangeListener} for obtaining values of scrolling.
+   * @param listener the {@link OnScrollChangeListener} to set
+   */
+  public void setOnScrollChangeListener(OnScrollChangeListener listener) {
+    onScrollChangeListener = listener;
   }
 
   /**
@@ -408,6 +425,19 @@ public class SmartTabLayout extends HorizontalScrollView {
      */
     int getDividerColor(int position);
 
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when the scroll position of a view changes.
+   */
+  public interface OnScrollChangeListener {
+
+    /**
+     * Called when the scroll position of a view changes.
+     * @param scrollX Current horizontal scroll origin.
+     * @param oldScrollX Previous horizontal scroll origin.
+     */
+    void onScrollChanged(int scrollX, int oldScrollX);
   }
 
   /**
