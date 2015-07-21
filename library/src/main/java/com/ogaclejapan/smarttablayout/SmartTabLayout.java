@@ -94,8 +94,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     // Disable the Scroll Bar
     setHorizontalScrollBarEnabled(false);
-    // Make sure that the Tab Strips fills this View
-    setFillViewport(true);
 
     final DisplayMetrics dm = getResources().getDisplayMetrics();
     final float density = dm.density;
