@@ -1,3 +1,7 @@
+# Version 1.2.2
+
+* Fix bug when indicatorAlwaysInCenter is true and tabHost has only two tabs #50
+
 # Version 1.2.1
 
 * Add custom ScrollListener interface #46
