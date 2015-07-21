@@ -154,9 +154,10 @@ public class SmartTabLayout extends HorizontalScrollView {
       throw new UnsupportedOperationException(
           "'distributeEvenly' and 'indicatorAlwaysInCenter' both use does not support");
     }
-    if(tabStrip.isIndicatorAlwaysInCenter()){
-      tabStrip.setMinimumWidth(Utils.getDisplayMetrics(context).widthPixels);
-    }
+
+    // Make sure that the Tab Strips fills this View
+    setFillViewport(!tabStrip.isIndicatorAlwaysInCenter());
+
     addView(tabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
   }
@@ -177,6 +178,7 @@ public class SmartTabLayout extends HorizontalScrollView {
       View lastTab = tabStrip.getChildAt(getChildCount() - 1);
       int left = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
       int right = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
+      tabStrip.setMinimumWidth(tabStrip.getMeasuredWidth());
       setPadding(left, getPaddingTop(), right, getPaddingBottom());
       setClipToPadding(false);
     }

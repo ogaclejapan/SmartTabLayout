@@ -16,13 +16,10 @@
  */
 package com.ogaclejapan.smarttablayout;
 
-import android.content.Context;
 import android.support.v4.view.MarginLayoutParamsCompat;
 import android.support.v4.view.ViewCompat;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 final class Utils {
 
@@ -78,13 +75,6 @@ final class Utils {
     }
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
     return MarginLayoutParamsCompat.getMarginStart(lp) + MarginLayoutParamsCompat.getMarginEnd(lp);
-  }
-
-  static DisplayMetrics getDisplayMetrics(final Context context) {
-    final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    final DisplayMetrics metrics = new DisplayMetrics();
-    wm.getDefaultDisplay().getMetrics(metrics);
-    return metrics;
   }
 
   private Utils() { }
