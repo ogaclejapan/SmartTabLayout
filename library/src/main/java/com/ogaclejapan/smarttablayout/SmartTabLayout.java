@@ -94,8 +94,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     // Disable the Scroll Bar
     setHorizontalScrollBarEnabled(false);
-    // Make sure that the Tab Strips fills this View
-    setFillViewport(true);
 
     final DisplayMetrics dm = getResources().getDisplayMetrics();
     final float density = dm.density;
@@ -155,6 +153,9 @@ public class SmartTabLayout extends HorizontalScrollView {
           "'distributeEvenly' and 'indicatorAlwaysInCenter' both use does not support");
     }
 
+    // Make sure that the Tab Strips fills this View
+    setFillViewport(!tabStrip.isIndicatorAlwaysInCenter());
+
     addView(tabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
   }
@@ -175,6 +176,7 @@ public class SmartTabLayout extends HorizontalScrollView {
       View lastTab = tabStrip.getChildAt(getChildCount() - 1);
       int left = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
       int right = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
+      tabStrip.setMinimumWidth(tabStrip.getMeasuredWidth());
       setPadding(left, getPaddingTop(), right, getPaddingBottom());
       setClipToPadding(false);
     }
