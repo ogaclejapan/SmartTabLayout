@@ -182,6 +182,15 @@ public class SmartTabLayout extends HorizontalScrollView {
     }
   }
 
+  @Override
+  protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    super.onLayout(changed, l, t, r, b);
+    // Ensure first scroll
+    if (changed && viewPager != null) {
+      scrollToTab(viewPager.getCurrentItem(), 0);
+    }
+  }
+
   /**
    * Set the behavior of the Indicator scrolling feedback.
    *
@@ -376,15 +385,6 @@ public class SmartTabLayout extends HorizontalScrollView {
         tabView.setSelected(true);
       }
 
-    }
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-
-    if (viewPager != null) {
-      scrollToTab(viewPager.getCurrentItem(), 0);
     }
   }
 
