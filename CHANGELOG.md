@@ -1,3 +1,8 @@
+# Version 1.3.0
+
+* RTL support #48
+* Add `stl_clickable` attribute.
+
 # Version 1.2.3
 
 * Modify to ensure the first scroll #54
