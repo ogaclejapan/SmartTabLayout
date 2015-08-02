@@ -41,25 +41,35 @@ license {
 
 }
 
-task androidJavadoc(type: Javadoc) {
-  failOnError false
-  source = android.sourceSets.main.java.srcDirs
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
+afterEvaluate { project ->
 
-task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-  classifier = 'javadoc'
-  from androidJavadoc.destinationDir
-}
+  task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+  }
 
-task androidSourcesJar(type: Jar) {
-  classifier = 'sources'
-  from android.sourceSets.main.java.srcDirs
-}
+  task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    options {
+      links "http://docs.oracle.com/javase/7/docs/api/"
+      linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
+    }
+    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 
-artifacts {
-  archives androidJavadocJar
-  archives androidSourcesJar
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  artifacts {
+    archives javadocJar
+    archives sourcesJar
+  }
+
 }
 
 install {
