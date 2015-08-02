@@ -31,26 +31,55 @@ final class Utils {
     return (v == null) ? 0 : v.getWidth();
   }
 
-  static int getRight(View v) {
-    return getRight(v, false);
+  static int getStart(View v) {
+    return getStart(v, false);
   }
 
-  static int getRight(View v, boolean withoutPadding) {
+  static int getStart(View v, boolean withoutPadding) {
     if (v == null) {
       return 0;
     }
-    return (withoutPadding) ? v.getRight() - ViewCompat.getPaddingEnd(v) : v.getRight();
+    if (isLayoutRtl(v)) {
+      return (withoutPadding) ? v.getRight() - getPaddingStart(v) : v.getRight();
+    } else {
+      return (withoutPadding) ? v.getLeft() + getPaddingStart(v) : v.getLeft();
+    }
   }
 
-  static int getLeft(View v) {
-    return getLeft(v, false);
+  static int getEnd(View v) {
+    return getEnd(v, false);
   }
 
-  static int getLeft(View v, boolean withoutPadding) {
+  static int getEnd(View v, boolean withoutPadding) {
     if (v == null) {
       return 0;
     }
-    return (withoutPadding) ? v.getLeft() + ViewCompat.getPaddingStart(v) : v.getLeft();
+    if (isLayoutRtl(v)) {
+      return (withoutPadding) ? v.getLeft() + getPaddingEnd(v) : v.getLeft();
+    } else {
+      return (withoutPadding) ? v.getRight() - getPaddingEnd(v) : v.getRight();
+    }
+  }
+
+  static int getPaddingStart(View v) {
+    if (v == null) {
+      return 0;
+    }
+    return ViewCompat.getPaddingStart(v);
+  }
+
+  static int getPaddingEnd(View v) {
+    if (v == null) {
+      return 0;
+    }
+    return ViewCompat.getPaddingEnd(v);
+  }
+
+  static int getPaddingHorizontally(View v) {
+    if (v == null) {
+      return 0;
+    }
+    return v.getPaddingLeft() + v.getPaddingRight();
   }
 
   static int getMarginStart(View v) {
@@ -75,6 +104,10 @@ final class Utils {
     }
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
     return MarginLayoutParamsCompat.getMarginStart(lp) + MarginLayoutParamsCompat.getMarginEnd(lp);
+  }
+
+  static boolean isLayoutRtl(View v) {
+    return ViewCompat.getLayoutDirection(v) == ViewCompat.LAYOUT_DIRECTION_RTL;
   }
 
   private Utils() { }

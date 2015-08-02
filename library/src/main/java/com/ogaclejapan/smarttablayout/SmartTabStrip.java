@@ -241,6 +241,7 @@ class SmartTabStrip extends LinearLayout {
     final int width = getWidth();
     final int tabCount = getChildCount();
     final SmartTabLayout.TabColorizer tabColorizer = getTabColorizer();
+    final boolean isLayoutRtl = Utils.isLayoutRtl(this);
 
     if (indicatorInFront) {
       drawOverline(canvas, 0, width);
@@ -250,8 +251,18 @@ class SmartTabStrip extends LinearLayout {
     // Thick colored underline below the current selection
     if (tabCount > 0) {
       View selectedTab = getChildAt(selectedPosition);
-      int left = Utils.getLeft(selectedTab, indicatorWithoutPadding);
-      int right = Utils.getRight(selectedTab, indicatorWithoutPadding);
+      int selectedStart = Utils.getStart(selectedTab, indicatorWithoutPadding);
+      int selectedEnd = Utils.getEnd(selectedTab, indicatorWithoutPadding);
+      int left;
+      int right;
+      if (isLayoutRtl) {
+        left = selectedEnd;
+        right = selectedStart;
+      } else {
+        left = selectedStart;
+        right = selectedEnd;
+      }
+
       int color = tabColorizer.getIndicatorColor(selectedPosition);
       float thickness = indicatorThickness;
 
@@ -262,15 +273,20 @@ class SmartTabStrip extends LinearLayout {
         }
 
         // Draw the selection partway between the tabs
-        float leftOffset = indicationInterpolator.getLeftEdge(selectionOffset);
-        float rightOffset = indicationInterpolator.getRightEdge(selectionOffset);
+        float startOffset = indicationInterpolator.getLeftEdge(selectionOffset);
+        float endOffset = indicationInterpolator.getRightEdge(selectionOffset);
         float thicknessOffset = indicationInterpolator.getThickness(selectionOffset);
 
         View nextTab = getChildAt(selectedPosition + 1);
-        left = (int) (leftOffset * Utils.getLeft(nextTab, indicatorWithoutPadding) +
-            (1.0f - leftOffset) * left);
-        right = (int) (rightOffset * Utils.getRight(nextTab, indicatorWithoutPadding) +
-            (1.0f - rightOffset) * right);
+        int nextStart = Utils.getStart(nextTab, indicatorWithoutPadding);
+        int nextEnd = Utils.getEnd(nextTab, indicatorWithoutPadding);
+        if (isLayoutRtl) {
+          left = (int) (endOffset * nextEnd + (1.0f - endOffset) * left);
+          right = (int) (startOffset * nextStart + (1.0f - startOffset) * right);
+        } else {
+          left = (int) (startOffset * nextStart + (1.0f - startOffset) * left);
+          right = (int) (endOffset * nextEnd + (1.0f - endOffset) * right);
+        }
         thickness = thickness * thicknessOffset;
       }
 
@@ -299,15 +315,20 @@ class SmartTabStrip extends LinearLayout {
     // Vertical separators between the titles
     final int separatorTop = (height - dividerHeightPx) / 2;
     final int separatorBottom = separatorTop + dividerHeightPx;
+
+    final boolean isLayoutRtl = Utils.isLayoutRtl(this);
     for (int i = 0; i < tabCount - 1; i++) {
       View child = getChildAt(i);
-      int separatorX = Utils.getRight(child) + Utils.getMarginEnd(child);
+      int end = Utils.getEnd(child);
+      int endMargin = Utils.getMarginEnd(child);
+      int separatorX = isLayoutRtl ? end - endMargin : end + endMargin;
       dividerPaint.setColor(tabColorizer.getDividerColor(i));
       canvas.drawLine(separatorX, separatorTop, separatorX, separatorBottom, dividerPaint);
     }
   }
 
-  private void drawIndicator(Canvas canvas, int left, int right, int height, float thickness, int color) {
+  private void drawIndicator(Canvas canvas, int left, int right, int height, float thickness,
+      int color) {
     if (indicatorThickness <= 0) {
       return;
     }
