@@ -67,6 +67,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
   private static final int TAB_VIEW_TEXT_COLOR = 0xFC000000;
   private static final int TAB_VIEW_TEXT_MIN_WIDTH = 0;
+  private static final boolean TAB_CLICKABLE = true;
 
   protected final SmartTabStrip tabStrip;
   private int titleOffset;
@@ -80,6 +81,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private ViewPager.OnPageChangeListener viewPagerPageChangeListener;
   private OnScrollChangeListener onScrollChangeListener;
   private TabProvider tabProvider;
+  private TabClickListener tabClickListener;
   private boolean distributeEvenly;
 
   public SmartTabLayout(Context context) {
@@ -109,6 +111,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     boolean distributeEvenly = DEFAULT_DISTRIBUTE_EVENLY;
     int customTabLayoutId = NO_ID;
     int customTabTextViewId = NO_ID;
+    boolean clickable = TAB_CLICKABLE;
 
     TypedArray a = context.obtainStyledAttributes(
         attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
@@ -130,6 +133,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         R.styleable.stl_SmartTabLayout_stl_customTabTextViewId, customTabTextViewId);
     distributeEvenly = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_distributeEvenly, distributeEvenly);
+    clickable = a.getBoolean(
+        R.styleable.stl_SmartTabLayout_stl_clickable, clickable);
     a.recycle();
 
     this.titleOffset = (int) (TITLE_OFFSET_DIPS * density);
@@ -141,6 +146,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     this.tabViewTextSize = textSize;
     this.tabViewTextHorizontalPadding = textHorizontalPadding;
     this.tabViewTextMinWidth = textMinWidth;
+    this.tabClickListener = clickable ? new TabClickListener() : null;
     this.distributeEvenly = distributeEvenly;
 
     if (customTabLayoutId != NO_ID) {
@@ -362,7 +368,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   private void populateTabStrip() {
     final PagerAdapter adapter = viewPager.getAdapter();
-    final OnClickListener tabClickListener = new TabClickListener();
 
     for (int i = 0; i < adapter.getCount(); i++) {
 
@@ -380,7 +385,10 @@ public class SmartTabLayout extends HorizontalScrollView {
         lp.weight = 1;
       }
 
-      tabView.setOnClickListener(tabClickListener);
+      if (tabClickListener != null) {
+        tabView.setOnClickListener(tabClickListener);
+      }
+
       tabStrip.addView(tabView);
 
       if (i == viewPager.getCurrentItem()) {

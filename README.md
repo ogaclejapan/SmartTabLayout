@@ -66,6 +66,7 @@ This should usually be placed above the ViewPager it represents.
     app:stl_defaultTabTextHorizontalPadding="16dp"
     app:stl_defaultTabTextMinWidth="0dp"
     app:stl_distributeEvenly="false"
+    app:stl_clickable="true"
     />
 
 <android.support.v4.view.ViewPager
@@ -147,6 +148,7 @@ There are several attributes you can set:
 | stl_customTabTextLayoutId | Layout ID defined custom tab. If you do not specify a layout, use the default tab |
 | stl_customTabTextViewId | Text view ID in a custom tab layout. If you do not define with customTabTextLayoutId, does not work |
 | stl_distributeEvenly | If set to true, each tab is given the same weight, default false |
+| stl_clickable | If set to false, disable the selection of a tab click, default true |
 
 
 *__Notes:__ Both 'stl_indicatorAlwaysInCenter' and 'stl_distributeEvenly' if it is set to true, it will throw UnsupportedOperationException.*
@@ -187,7 +189,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
 # How to use the utility
 
-Utility has two types available to suit the Android support library.
+Utility has two types available to suit the Android support library.
 
 * utils-v4 library contains the PagerAdapter implementation class for _android.support.v4.app.Fragment_
 * utils-v13 library contains the PagerAdapter implementation class for _android.app.Fragment_
