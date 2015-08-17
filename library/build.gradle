@@ -42,6 +42,37 @@ license {
 
 }
 
+afterEvaluate { project ->
+
+  task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+  }
+
+  task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.srcDirs
+    options {
+      links "http://docs.oracle.com/javase/7/docs/api/"
+      linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
+    }
+    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
+  artifacts {
+    archives javadocJar
+    archives sourcesJar
+  }
+
+}
+
 install {
   repositories.mavenInstaller {
     // This generates POM.xml with proper parameters
@@ -82,37 +113,6 @@ install {
       }
     }
   }
-}
-
-afterEvaluate { project ->
-
-  task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-  }
-
-  task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.srcDirs
-    options {
-      links "http://docs.oracle.com/javase/7/docs/api/"
-      linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
-    }
-    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-
-  }
-
-  task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-  }
-
-  artifacts {
-    archives javadocJar
-    archives sourcesJar
-  }
-
 }
 
 def getNexusUser() {
@@ -166,6 +166,7 @@ bintray {
         sync = true
         user = nexusUser
         password = nexusPassword
+        close = '1'
       }
 
     }

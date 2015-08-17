@@ -123,6 +123,13 @@ public enum Demo {
 
   INDICATOR_TRICK2(R.string.demo_title_indicator_trick2, R.layout.demo_indicator_trick2),
 
+  RIGHT_TO_LEFT(R.string.demo_title_right_to_left, R.layout.demo_rtl) {
+    @Override
+    public void startActivity(Context context) {
+      DemoRtlActivity.startActivity(context, this);
+    }
+  },
+
   LIKE_MEDIUM_TAG(R.string.demo_title_advanced_medium, R.layout.demo_like_a_medium_tag) {
     @Override
     public int[] tabs() {

@@ -1,3 +1,16 @@
+# Version 1.3.0
+
+* RTL support #48
+* Add `stl_clickable` attribute.
+
+# Version 1.2.3
+
+* Modify to ensure the first scroll #54
+
+# Version 1.2.2
+
+* Fix bug when indicatorAlwaysInCenter is true and tabHost has only two tabs #50
+
 # Version 1.2.1
 
 * Add custom ScrollListener interface #46

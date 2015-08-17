@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -66,6 +67,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
   private static final int TAB_VIEW_TEXT_COLOR = 0xFC000000;
   private static final int TAB_VIEW_TEXT_MIN_WIDTH = 0;
+  private static final boolean TAB_CLICKABLE = true;
 
   protected final SmartTabStrip tabStrip;
   private int titleOffset;
@@ -79,6 +81,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private ViewPager.OnPageChangeListener viewPagerPageChangeListener;
   private OnScrollChangeListener onScrollChangeListener;
   private TabProvider tabProvider;
+  private TabClickListener tabClickListener;
   private boolean distributeEvenly;
 
   public SmartTabLayout(Context context) {
@@ -94,8 +97,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     // Disable the Scroll Bar
     setHorizontalScrollBarEnabled(false);
-    // Make sure that the Tab Strips fills this View
-    setFillViewport(true);
 
     final DisplayMetrics dm = getResources().getDisplayMetrics();
     final float density = dm.density;
@@ -110,6 +111,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     boolean distributeEvenly = DEFAULT_DISTRIBUTE_EVENLY;
     int customTabLayoutId = NO_ID;
     int customTabTextViewId = NO_ID;
+    boolean clickable = TAB_CLICKABLE;
 
     TypedArray a = context.obtainStyledAttributes(
         attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
@@ -131,6 +133,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         R.styleable.stl_SmartTabLayout_stl_customTabTextViewId, customTabTextViewId);
     distributeEvenly = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_distributeEvenly, distributeEvenly);
+    clickable = a.getBoolean(
+        R.styleable.stl_SmartTabLayout_stl_clickable, clickable);
     a.recycle();
 
     this.titleOffset = (int) (TITLE_OFFSET_DIPS * density);
@@ -142,6 +146,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     this.tabViewTextSize = textSize;
     this.tabViewTextHorizontalPadding = textHorizontalPadding;
     this.tabViewTextMinWidth = textMinWidth;
+    this.tabClickListener = clickable ? new TabClickListener() : null;
     this.distributeEvenly = distributeEvenly;
 
     if (customTabLayoutId != NO_ID) {
@@ -154,6 +159,9 @@ public class SmartTabLayout extends HorizontalScrollView {
       throw new UnsupportedOperationException(
           "'distributeEvenly' and 'indicatorAlwaysInCenter' both use does not support");
     }
+
+    // Make sure that the Tab Strips fills this View
+    setFillViewport(!tabStrip.isIndicatorAlwaysInCenter());
 
     addView(tabStrip, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
@@ -173,10 +181,20 @@ public class SmartTabLayout extends HorizontalScrollView {
     if (tabStrip.isIndicatorAlwaysInCenter() && getChildCount() > 0) {
       View firstTab = tabStrip.getChildAt(0);
       View lastTab = tabStrip.getChildAt(getChildCount() - 1);
-      int left = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
-      int right = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
-      setPadding(left, getPaddingTop(), right, getPaddingBottom());
+      int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
+      int end = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
+      tabStrip.setMinimumWidth(tabStrip.getMeasuredWidth());
+      ViewCompat.setPaddingRelative(this, start, getPaddingTop(), end, getPaddingBottom());
       setClipToPadding(false);
+    }
+  }
+
+  @Override
+  protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    super.onLayout(changed, l, t, r, b);
+    // Ensure first scroll
+    if (changed && viewPager != null) {
+      scrollToTab(viewPager.getCurrentItem(), 0);
     }
   }
 
@@ -256,6 +274,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   /**
    * Set {@link OnScrollChangeListener} for obtaining values of scrolling.
+   *
    * @param listener the {@link OnScrollChangeListener} to set
    */
   public void setOnScrollChangeListener(OnScrollChangeListener listener) {
@@ -349,7 +368,6 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   private void populateTabStrip() {
     final PagerAdapter adapter = viewPager.getAdapter();
-    final OnClickListener tabClickListener = new TabClickListener();
 
     for (int i = 0; i < adapter.getCount(); i++) {
 
@@ -367,22 +385,16 @@ public class SmartTabLayout extends HorizontalScrollView {
         lp.weight = 1;
       }
 
-      tabView.setOnClickListener(tabClickListener);
+      if (tabClickListener != null) {
+        tabView.setOnClickListener(tabClickListener);
+      }
+
       tabStrip.addView(tabView);
 
       if (i == viewPager.getCurrentItem()) {
         tabView.setSelected(true);
       }
 
-    }
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-
-    if (viewPager != null) {
-      scrollToTab(viewPager.getCurrentItem(), 0);
     }
   }
 
@@ -393,20 +405,49 @@ public class SmartTabLayout extends HorizontalScrollView {
     }
 
     View selectedTab = tabStrip.getChildAt(tabIndex);
-    if (selectedTab != null) {
-      int targetScrollX = Utils.getLeft(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
-      if (tabStrip.isIndicatorAlwaysInCenter()) {
-        View firstTab = tabStrip.getChildAt(0);
+    if (selectedTab == null) {
+      return;
+    }
+
+    final boolean isLayoutRtl = Utils.isLayoutRtl(this);
+
+    if (tabStrip.isIndicatorAlwaysInCenter()) {
+      View firstTab = tabStrip.getChildAt(0);
+      int x;
+      if (isLayoutRtl) {
+        int first = Utils.getWidth(firstTab) + Utils.getMarginEnd(firstTab);
+        int selected = Utils.getWidth(selectedTab) + Utils.getMarginEnd(selectedTab);
+        x = Utils.getEnd(selectedTab) - Utils.getMarginEnd(selectedTab) - positionOffset;
+        x -= (first - selected) / 2;
+      } else {
         int first = Utils.getWidth(firstTab) + Utils.getMarginStart(firstTab);
         int selected = Utils.getWidth(selectedTab) + Utils.getMarginStart(selectedTab);
-        targetScrollX -= (first - selected) / 2;
-      } else if (tabIndex > 0 || positionOffset > 0) {
-        // If we're not at the first child and are mid-scroll, make sure we obey the offset
-        targetScrollX -= titleOffset;
+        x = Utils.getStart(selectedTab) - Utils.getMarginStart(selectedTab) + positionOffset;
+        x -= (first - selected) / 2;
       }
 
-      scrollTo(targetScrollX, 0);
+      scrollTo(x, 0);
+      return;
+
     }
+
+    int start = Utils.getStart(selectedTab);
+    int startMargin = Utils.getMarginStart(selectedTab);
+    int x = isLayoutRtl
+        ? start + startMargin - positionOffset - getWidth() + Utils.getPaddingHorizontally(this)
+        : start - startMargin + positionOffset;
+
+    if (tabIndex > 0 || positionOffset > 0) {
+      // If we're not at the first child and are mid-scroll, make sure we obey the offset
+      if (isLayoutRtl) {
+        x += titleOffset;
+      } else {
+        x -= titleOffset;
+      }
+    }
+
+    scrollTo(x, 0);
+
   }
 
   /**
@@ -434,6 +475,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     /**
      * Called when the scroll position of a view changes.
+     *
      * @param scrollX Current horizontal scroll origin.
      * @param oldScrollX Previous horizontal scroll origin.
      */
@@ -508,8 +550,7 @@ public class SmartTabLayout extends HorizontalScrollView {
       int widthPlusMargin = Utils.getWidth(selectedTab) + Utils.getMarginHorizontally(selectedTab);
       int extraOffset = (int) (positionOffset * widthPlusMargin);
 
-      if (0f < positionOffset && positionOffset < 1f
-          && tabStrip.isIndicatorAlwaysInCenter()) {
+      if (0f < positionOffset && positionOffset < 1f && tabStrip.isIndicatorAlwaysInCenter()) {
         View currentTab = tabStrip.getChildAt(position);
         View nextTab = tabStrip.getChildAt(position + 1);
         int current = Utils.getWidth(currentTab) / 2 + Utils.getMarginEnd(currentTab);
@@ -520,8 +561,7 @@ public class SmartTabLayout extends HorizontalScrollView {
       scrollToTab(position, extraOffset);
 
       if (viewPagerPageChangeListener != null) {
-        viewPagerPageChangeListener.onPageScrolled(position, positionOffset,
-            positionOffsetPixels);
+        viewPagerPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
       }
     }
 
