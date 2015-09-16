@@ -1,3 +1,7 @@
+# Version 1.4.1
+
+* Update android support library version to 22.2.1
+
 # Version 1.4.0
 
 * Add TabClickListener interface #68
