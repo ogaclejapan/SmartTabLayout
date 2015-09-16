@@ -1,3 +1,7 @@
+# Version 1.4.0
+
+* Add TabClickListener interface #68
+
 # Version 1.3.0
 
 * RTL support #48
