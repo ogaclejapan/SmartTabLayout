@@ -319,7 +319,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     this.viewPager = viewPager;
     if (viewPager != null && viewPager.getAdapter() != null) {
-      viewPager.setOnPageChangeListener(new InternalViewPagerListener());
+      viewPager.addOnPageChangeListener(new InternalViewPagerListener());
       populateTabStrip();
     }
   }
