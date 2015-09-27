@@ -1,3 +1,7 @@
+# Version 1.4.2
+
+* Change the call order of OnTabClickListener when press the tab #74
+
 # Version 1.4.1
 
 * Update android support library version to 22.2.1
