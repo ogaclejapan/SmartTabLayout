@@ -19,6 +19,7 @@
   <string name="demo_title_indicator_trick2">Indicator Thickness Trick 2</string>
   <string name="demo_title_right_to_left">RTL support</string>
   <string name="demo_title_advanced_medium">Advanced: Like a Medium Tag (since 1.2~)</string>
+  <string name="demo_title_dynamic">Dynamic Tabs (since 1.4.2~)</string>
 
 
   <string name="demo_tab_1">Cupcake</string>
