@@ -81,7 +81,8 @@ public class SmartTabLayout extends HorizontalScrollView {
   private ViewPager.OnPageChangeListener viewPagerPageChangeListener;
   private OnScrollChangeListener onScrollChangeListener;
   private TabProvider tabProvider;
-  private TabClickListener tabClickListener;
+  private InternalTabClickListener internalTabClickListener;
+  private OnTabClickListener onTabClickListener;
   private boolean distributeEvenly;
 
   public SmartTabLayout(Context context) {
@@ -146,7 +147,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     this.tabViewTextSize = textSize;
     this.tabViewTextHorizontalPadding = textHorizontalPadding;
     this.tabViewTextMinWidth = textMinWidth;
-    this.tabClickListener = clickable ? new TabClickListener() : null;
+    this.internalTabClickListener = clickable ? new InternalTabClickListener() : null;
     this.distributeEvenly = distributeEvenly;
 
     if (customTabLayoutId != NO_ID) {
@@ -282,6 +283,15 @@ public class SmartTabLayout extends HorizontalScrollView {
   }
 
   /**
+   * Set {@link OnTabClickListener} for obtaining click event.
+   *
+   * @param listener the {@link OnTabClickListener} to set
+   */
+  public void setOnTabClickListener(OnTabClickListener listener) {
+    onTabClickListener = listener;
+  }
+
+  /**
    * Set the custom layout to be inflated for the tab views.
    *
    * @param layoutResId Layout id to be inflated
@@ -309,7 +319,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
     this.viewPager = viewPager;
     if (viewPager != null && viewPager.getAdapter() != null) {
-      viewPager.setOnPageChangeListener(new InternalViewPagerListener());
+      viewPager.addOnPageChangeListener(new InternalViewPagerListener());
       populateTabStrip();
     }
   }
@@ -385,8 +395,8 @@ public class SmartTabLayout extends HorizontalScrollView {
         lp.weight = 1;
       }
 
-      if (tabClickListener != null) {
-        tabView.setOnClickListener(tabClickListener);
+      if (internalTabClickListener != null) {
+        tabView.setOnClickListener(internalTabClickListener);
       }
 
       tabStrip.addView(tabView);
@@ -480,6 +490,19 @@ public class SmartTabLayout extends HorizontalScrollView {
      * @param oldScrollX Previous horizontal scroll origin.
      */
     void onScrollChanged(int scrollX, int oldScrollX);
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when a tab is clicked.
+   */
+  public interface OnTabClickListener {
+
+    /**
+     * Called when a tab is clicked.
+     *
+     * @param position tab's position
+     */
+    void onTabClicked(int position);
   }
 
   /**
@@ -592,11 +615,14 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   }
 
-  private class TabClickListener implements OnClickListener {
+  private class InternalTabClickListener implements OnClickListener {
     @Override
     public void onClick(View v) {
       for (int i = 0; i < tabStrip.getChildCount(); i++) {
         if (v == tabStrip.getChildAt(i)) {
+          if (onTabClickListener != null) {
+            onTabClickListener.onTabClicked(i);
+          }
           viewPager.setCurrentItem(i);
           return;
         }
