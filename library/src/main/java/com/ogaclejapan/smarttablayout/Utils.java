@@ -31,6 +31,10 @@ final class Utils {
     return (v == null) ? 0 : v.getWidth();
   }
 
+  static int getWidthWithMargin(View v) {
+    return getWidth(v) + getMarginHorizontally(v);
+  }
+
   static int getStart(View v) {
     return getStart(v, false);
   }

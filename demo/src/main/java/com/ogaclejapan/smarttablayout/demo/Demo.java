@@ -14,6 +14,8 @@ public enum Demo {
 
   BASIC(R.string.demo_title_basic, R.layout.demo_basic),
 
+  BASIC2(R.string.demo_title_basic2, R.layout.demo_basic_title_offset_auto_center),
+
   SMART_INDICATOR(R.string.demo_title_smart_indicator, R.layout.demo_smart_indicator),
 
   DISTRIBUTE_EVENLY(R.string.demo_title_distribute_evenly, R.layout.demo_distribute_evenly) {

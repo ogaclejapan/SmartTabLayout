@@ -34,5 +34,8 @@
     <attr name="stl_customTabTextViewId" format="reference"/>
     <attr name="stl_distributeEvenly" format="boolean"/>
     <attr name="stl_clickable" format="boolean"/>
+    <attr name="stl_titleOffset" format="dimension">
+      <enum name="auto_center" value="-1"/>
+    </attr>
   </declare-styleable>
 </resources>
