@@ -254,7 +254,7 @@ public void onPageSelected(int position) {
 # Apps Using SmartTabLayout
 
 * [Qiitanium][qiitanium]
-* [Ameba][https://play.google.com/store/apps/details?id=jp.ameba&hl=ja]
+* [Ameba](https://play.google.com/store/apps/details?id=jp.ameba&hl=ja)
 
 # LICENSE
 
