@@ -52,6 +52,7 @@ class SmartTabStrip extends LinearLayout {
   private static final boolean DEFAULT_INDICATOR_IN_FRONT = false;
   private static final boolean DEFAULT_INDICATOR_WITHOUT_PADDING = false;
   private static final int DEFAULT_INDICATOR_GRAVITY = GRAVITY_BOTTOM;
+  private static final boolean DEFAULT_DRAW_DECORATION_AFTER_TAB = false;
 
   private final int topBorderThickness;
   private final int topBorderColor;
@@ -70,6 +71,7 @@ class SmartTabStrip extends LinearLayout {
   private final Paint dividerPaint;
   private final float dividerHeight;
   private final SimpleTabColorizer defaultTabColorizer;
+  private final boolean drawDecorationAfterTab;
 
   private int lastPosition;
   private int selectedPosition;
@@ -103,6 +105,7 @@ class SmartTabStrip extends LinearLayout {
     int dividerColor = setColorAlpha(themeForegroundColor, DEFAULT_DIVIDER_COLOR_ALPHA);
     int dividerColorsId = NO_ID;
     int dividerThickness = (int) (DEFAULT_DIVIDER_THICKNESS_DIPS * density);
+    boolean drawDecorationAfterTab = DEFAULT_DRAW_DECORATION_AFTER_TAB;
 
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.stl_SmartTabLayout);
     indicatorAlwaysInCenter = a.getBoolean(
@@ -137,6 +140,8 @@ class SmartTabStrip extends LinearLayout {
         R.styleable.stl_SmartTabLayout_stl_dividerColors, dividerColorsId);
     dividerThickness = a.getDimensionPixelSize(
         R.styleable.stl_SmartTabLayout_stl_dividerThickness, dividerThickness);
+    drawDecorationAfterTab = a.getBoolean(
+        R.styleable.stl_SmartTabLayout_stl_drawDecorationAfterTab, drawDecorationAfterTab);
     a.recycle();
 
     final int[] indicatorColors = (indicatorColorsId == NO_ID)
@@ -169,6 +174,8 @@ class SmartTabStrip extends LinearLayout {
     this.dividerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     this.dividerPaint.setStrokeWidth(dividerThickness);
     this.dividerThickness = dividerThickness;
+
+    this.drawDecorationAfterTab = drawDecorationAfterTab;
 
     this.indicationInterpolator = SmartTabIndicationInterpolator.of(indicationInterpolatorId);
   }
@@ -237,6 +244,20 @@ class SmartTabStrip extends LinearLayout {
 
   @Override
   protected void onDraw(Canvas canvas) {
+    if (!drawDecorationAfterTab) {
+      drawDecoration(canvas);
+    }
+  }
+
+  @Override
+  protected void dispatchDraw(Canvas canvas) {
+    super.dispatchDraw(canvas);
+    if (drawDecorationAfterTab) {
+      drawDecoration(canvas);
+    }
+  }
+
+  private void drawDecoration(Canvas canvas) {
     final int height = getHeight();
     final int width = getWidth();
     final int tabCount = getChildCount();
