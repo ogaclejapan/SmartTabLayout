@@ -26,13 +26,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.4.2@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.5.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.4.2@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.5.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.4.2@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.5.0@aar'
 }
 ```
 
@@ -285,7 +285,7 @@ limitations under the License.
 [demo5_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo5.gif
 [demo6_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo6.gif
 [demo7_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo7.gif
-[demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo
+[demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo&referrer=utm_source%3Dgithub
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/icon.png
 [googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
 [maven_central_badge_svg]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.smarttablayout/library/badge.svg?style=flat

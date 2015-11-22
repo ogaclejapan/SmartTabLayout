@@ -1,3 +1,9 @@
+# Version 1.5.0
+
+* Add `stl_drawDecorationAfterTab` attribute for change the drawing order #58
+* Add `stl_titleOffset` attribute for adjust the slide position #89
+* Fixed a condition code of onSizeChanged for always in center
+
 # Version 1.4.2
 
 * Change the call order of OnTabClickListener when press the tab #74
