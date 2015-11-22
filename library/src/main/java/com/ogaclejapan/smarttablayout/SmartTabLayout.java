@@ -183,7 +183,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    if (tabStrip.isIndicatorAlwaysInCenter() && getChildCount() > 0) {
+    if (tabStrip.isIndicatorAlwaysInCenter() && tabStrip.getChildCount() > 0) {
       View firstTab = tabStrip.getChildAt(0);
       View lastTab = tabStrip.getChildAt(getChildCount() - 1);
       int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
