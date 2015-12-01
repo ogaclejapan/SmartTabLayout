@@ -1,3 +1,7 @@
+# Version 1.5.1
+
+* Fixed indicator position of auto_center #100
+
 # Version 1.5.0
 
 * Add `stl_drawDecorationAfterTab` attribute for change the drawing order #58
