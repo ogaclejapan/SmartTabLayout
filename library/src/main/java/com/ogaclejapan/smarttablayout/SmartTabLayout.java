@@ -463,8 +463,10 @@ public class SmartTabLayout extends HorizontalScrollView {
 
       if (isLayoutRtl) {
         x = -Utils.getWidthWithMargin(selectedTab) / 2 + getWidth() / 2;
+        x -= Utils.getPaddingStart(this);
       } else {
         x = Utils.getWidthWithMargin(selectedTab) / 2 - getWidth() / 2;
+        x += Utils.getPaddingStart(this);
       }
 
     } else {
