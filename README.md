@@ -103,6 +103,7 @@ viewPagerTab.setViewPager(viewPager);
 
 (Optional) If you use an OnPageChangeListener with your view pager you should set it in the widget rather than on the pager directly.
 
+
 ```java
 
 viewPagerTab.setOnPageChangeListener(mPageChangeListener);
@@ -253,6 +254,7 @@ public void onPageSelected(int position) {
 
 ```
 
+*__Notes:__ If using fragment inside a ViewPager, Must be use [Fragment#getChildFragmentManager()](http://developer.android.com/reference/android/support/v4/app/Fragment.html#getChildFragmentManager).*
 
 # Apps Using SmartTabLayout
 
