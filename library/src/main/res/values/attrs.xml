@@ -21,6 +21,7 @@
     <attr name="stl_overlineThickness" format="dimension"/>
     <attr name="stl_underlineColor" format="color"/>
     <attr name="stl_underlineThickness" format="dimension"/>
+    <attr name="stl_indicatorWidth" format="dimension"/>
     <attr name="stl_dividerColor" format="color"/>
     <attr name="stl_dividerColors" format="reference"/>
     <attr name="stl_dividerThickness" format="dimension"/>

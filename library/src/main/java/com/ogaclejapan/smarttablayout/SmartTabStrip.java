@@ -43,6 +43,7 @@ class SmartTabStrip extends LinearLayout {
   private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
   private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
   private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
+  private static final int DEFAULT_INDICATOR_WIDTH_DIPS = -1;
   private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
   private static final float DEFAULT_INDICATOR_CORNER_RADIUS = 0f;
   private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 1;
@@ -64,6 +65,7 @@ class SmartTabStrip extends LinearLayout {
   private final boolean indicatorAlwaysInCenter;
   private final boolean indicatorInFront;
   private final int indicatorThickness;
+  private final int indicatorWidth;
   private final int indicatorGravity;
   private final float indicatorCornerRadius;
   private final Paint indicatorPaint;
@@ -97,6 +99,7 @@ class SmartTabStrip extends LinearLayout {
     int indicatorColor = DEFAULT_SELECTED_INDICATOR_COLOR;
     int indicatorColorsId = NO_ID;
     int indicatorThickness = (int) (SELECTED_INDICATOR_THICKNESS_DIPS * density);
+    int indicatorWidth = DEFAULT_INDICATOR_WIDTH_DIPS;
     float indicatorCornerRadius = DEFAULT_INDICATOR_CORNER_RADIUS * density;
     int overlineColor = setColorAlpha(themeForegroundColor, DEFAULT_TOP_BORDER_COLOR_ALPHA);
     int overlineThickness = (int) (DEFAULT_TOP_BORDER_THICKNESS_DIPS * density);
@@ -115,15 +118,17 @@ class SmartTabStrip extends LinearLayout {
     indicatorInFront = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_indicatorInFront, indicatorInFront);
     indicationInterpolatorId = a.getInt(
-        R.styleable.stl_SmartTabLayout_stl_indicatorInterpolation, indicationInterpolatorId);
+            R.styleable.stl_SmartTabLayout_stl_indicatorInterpolation, indicationInterpolatorId);
     indicatorGravity = a.getInt(
-        R.styleable.stl_SmartTabLayout_stl_indicatorGravity, indicatorGravity);
+            R.styleable.stl_SmartTabLayout_stl_indicatorGravity, indicatorGravity);
     indicatorColor = a.getColor(
-        R.styleable.stl_SmartTabLayout_stl_indicatorColor, indicatorColor);
+            R.styleable.stl_SmartTabLayout_stl_indicatorColor, indicatorColor);
     indicatorColorsId = a.getResourceId(
-        R.styleable.stl_SmartTabLayout_stl_indicatorColors, indicatorColorsId);
+            R.styleable.stl_SmartTabLayout_stl_indicatorColors, indicatorColorsId);
     indicatorThickness = a.getDimensionPixelSize(
-        R.styleable.stl_SmartTabLayout_stl_indicatorThickness, indicatorThickness);
+            R.styleable.stl_SmartTabLayout_stl_indicatorThickness, indicatorThickness);
+    indicatorWidth = a.getDimensionPixelSize(
+            R.styleable.stl_SmartTabLayout_stl_indicatorWidth, indicatorWidth);
     indicatorCornerRadius = a.getDimension(
         R.styleable.stl_SmartTabLayout_stl_indicatorCornerRadius, indicatorCornerRadius);
     overlineColor = a.getColor(
@@ -166,6 +171,7 @@ class SmartTabStrip extends LinearLayout {
     this.indicatorWithoutPadding = indicatorWithoutPadding;
     this.indicatorInFront = indicatorInFront;
     this.indicatorThickness = indicatorThickness;
+    this.indicatorWidth = indicatorWidth;
     this.indicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     this.indicatorCornerRadius = indicatorCornerRadius;
     this.indicatorGravity = indicatorGravity;
@@ -377,12 +383,18 @@ class SmartTabStrip extends LinearLayout {
     }
 
     indicatorPaint.setColor(color);
-    indicatorRectF.set(left, top, right, bottom);
+    if (indicatorWidth < 0 //still MATCH_PARENT
+            || Math.abs(left - right) <= indicatorWidth) {
+      indicatorRectF.set(left, top, right, bottom);
+    } else {
+      float padding = (Math.abs(left - right) - indicatorWidth) / 2f;
+      indicatorRectF.set(left + padding, top, right - padding, bottom);
+    }
 
     if (indicatorCornerRadius > 0f) {
       canvas.drawRoundRect(
-          indicatorRectF, indicatorCornerRadius,
-          indicatorCornerRadius, indicatorPaint);
+              indicatorRectF, indicatorCornerRadius,
+              indicatorCornerRadius, indicatorPaint);
     } else {
       canvas.drawRect(indicatorRectF, indicatorPaint);
     }
