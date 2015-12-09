@@ -118,17 +118,17 @@ class SmartTabStrip extends LinearLayout {
     indicatorInFront = a.getBoolean(
         R.styleable.stl_SmartTabLayout_stl_indicatorInFront, indicatorInFront);
     indicationInterpolatorId = a.getInt(
-            R.styleable.stl_SmartTabLayout_stl_indicatorInterpolation, indicationInterpolatorId);
+        R.styleable.stl_SmartTabLayout_stl_indicatorInterpolation, indicationInterpolatorId);
     indicatorGravity = a.getInt(
-            R.styleable.stl_SmartTabLayout_stl_indicatorGravity, indicatorGravity);
+        R.styleable.stl_SmartTabLayout_stl_indicatorGravity, indicatorGravity);
     indicatorColor = a.getColor(
-            R.styleable.stl_SmartTabLayout_stl_indicatorColor, indicatorColor);
+        R.styleable.stl_SmartTabLayout_stl_indicatorColor, indicatorColor);
     indicatorColorsId = a.getResourceId(
-            R.styleable.stl_SmartTabLayout_stl_indicatorColors, indicatorColorsId);
+        R.styleable.stl_SmartTabLayout_stl_indicatorColors, indicatorColorsId);
     indicatorThickness = a.getDimensionPixelSize(
-            R.styleable.stl_SmartTabLayout_stl_indicatorThickness, indicatorThickness);
+        R.styleable.stl_SmartTabLayout_stl_indicatorThickness, indicatorThickness);
     indicatorWidth = a.getDimensionPixelSize(
-            R.styleable.stl_SmartTabLayout_stl_indicatorWidth, indicatorWidth);
+        R.styleable.stl_SmartTabLayout_stl_indicatorWidth, indicatorWidth);
     indicatorCornerRadius = a.getDimension(
         R.styleable.stl_SmartTabLayout_stl_indicatorCornerRadius, indicatorCornerRadius);
     overlineColor = a.getColor(
@@ -384,7 +384,7 @@ class SmartTabStrip extends LinearLayout {
 
     indicatorPaint.setColor(color);
     if (indicatorWidth < 0 //still MATCH_PARENT
-            || Math.abs(left - right) <= indicatorWidth) {
+        || Math.abs(left - right) <= indicatorWidth) {
       indicatorRectF.set(left, top, right, bottom);
     } else {
       float padding = (Math.abs(left - right) - indicatorWidth) / 2f;
@@ -393,8 +393,8 @@ class SmartTabStrip extends LinearLayout {
 
     if (indicatorCornerRadius > 0f) {
       canvas.drawRoundRect(
-              indicatorRectF, indicatorCornerRadius,
-              indicatorCornerRadius, indicatorPaint);
+          indicatorRectF, indicatorCornerRadius,
+          indicatorCornerRadius, indicatorPaint);
     } else {
       canvas.drawRect(indicatorRectF, indicatorPaint);
     }
