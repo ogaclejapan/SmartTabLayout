@@ -1,3 +1,7 @@
+# Version 1.6.0
+
+* Add `stl_indicatorWidth` to custom indicator's width #106
+
 # Version 1.5.1
 
 * Fixed indicator position of auto_center #100
