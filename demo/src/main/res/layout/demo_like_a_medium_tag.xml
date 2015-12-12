@@ -10,6 +10,7 @@
   app:stl_dividerThickness="0dp"
   app:stl_overlineColor="@color/black_20"
   app:stl_overlineThickness="1dp"
+  app:stl_indicatorWidth="48dp"
   app:stl_indicatorColor="@color/black"
   app:stl_indicatorCornerRadius="1dp"
   app:stl_indicatorGravity="top"

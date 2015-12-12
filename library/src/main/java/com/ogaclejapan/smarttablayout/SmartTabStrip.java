@@ -38,12 +38,13 @@ class SmartTabStrip extends LinearLayout {
   private static final int GRAVITY_TOP = 1;
   private static final int GRAVITY_CENTER = 2;
 
+  private static final int AUTO_WIDTH = -1;
+
   private static final int DEFAULT_TOP_BORDER_THICKNESS_DIPS = 0;
   private static final byte DEFAULT_TOP_BORDER_COLOR_ALPHA = 0x26;
   private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
   private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
   private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
-  private static final int DEFAULT_INDICATOR_WIDTH_DIPS = -1;
   private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
   private static final float DEFAULT_INDICATOR_CORNER_RADIUS = 0f;
   private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 1;
@@ -99,7 +100,7 @@ class SmartTabStrip extends LinearLayout {
     int indicatorColor = DEFAULT_SELECTED_INDICATOR_COLOR;
     int indicatorColorsId = NO_ID;
     int indicatorThickness = (int) (SELECTED_INDICATOR_THICKNESS_DIPS * density);
-    int indicatorWidth = DEFAULT_INDICATOR_WIDTH_DIPS;
+    int indicatorWidth = AUTO_WIDTH;
     float indicatorCornerRadius = DEFAULT_INDICATOR_CORNER_RADIUS * density;
     int overlineColor = setColorAlpha(themeForegroundColor, DEFAULT_TOP_BORDER_COLOR_ALPHA);
     int overlineThickness = (int) (DEFAULT_TOP_BORDER_THICKNESS_DIPS * density);
@@ -127,7 +128,7 @@ class SmartTabStrip extends LinearLayout {
         R.styleable.stl_SmartTabLayout_stl_indicatorColors, indicatorColorsId);
     indicatorThickness = a.getDimensionPixelSize(
         R.styleable.stl_SmartTabLayout_stl_indicatorThickness, indicatorThickness);
-    indicatorWidth = a.getDimensionPixelSize(
+    indicatorWidth = a.getLayoutDimension(
         R.styleable.stl_SmartTabLayout_stl_indicatorWidth, indicatorWidth);
     indicatorCornerRadius = a.getDimension(
         R.styleable.stl_SmartTabLayout_stl_indicatorCornerRadius, indicatorCornerRadius);
@@ -356,7 +357,7 @@ class SmartTabStrip extends LinearLayout {
 
   private void drawIndicator(Canvas canvas, int left, int right, int height, float thickness,
       int color) {
-    if (indicatorThickness <= 0) {
+    if (indicatorThickness <= 0 || indicatorWidth == 0) {
       return;
     }
 
@@ -383,8 +384,7 @@ class SmartTabStrip extends LinearLayout {
     }
 
     indicatorPaint.setColor(color);
-    if (indicatorWidth < 0 //still MATCH_PARENT
-        || Math.abs(left - right) <= indicatorWidth) {
+    if (indicatorWidth == AUTO_WIDTH) {
       indicatorRectF.set(left, top, right, bottom);
     } else {
       float padding = (Math.abs(left - right) - indicatorWidth) / 2f;

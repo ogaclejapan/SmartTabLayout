@@ -52,6 +52,7 @@ This should usually be placed above the ViewPager it represents.
     app:stl_indicatorGravity="bottom"
     app:stl_indicatorColor="#40C4FF"
     app:stl_indicatorThickness="4dp"
+    app:stl_indicatorWidth="auto"
     app:stl_indicatorCornerRadius="2dp"
     app:stl_overlineColor="#4D000000"
     app:stl_overlineThickness="0dp"
@@ -134,6 +135,7 @@ There are several attributes you can set:
 | stl_indicatorColor | Color of the indicator |
 | stl_indicatorColors | Multiple colors of the indicator, can set the color for each tab |
 | stl_indicatorThickness | Thickness of the indicator |
+| stl_indicatorWidth | Width of the indicator, default 'auto' |
 | stl_indicatorCornerRadius | Radius of rounded corner the indicator |
 | stl_overlineColor | Color of the top line |
 | stl_overlineThickness | Thickness of the top line |
