@@ -35,6 +35,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as
  * to
@@ -75,6 +78,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private int tabViewBackgroundResId;
   private boolean tabViewTextAllCaps;
   private ColorStateList tabViewTextColors;
+  private List<ColorStateList> listTabViewTextColors;
   private float tabViewTextSize;
   private int tabViewTextHorizontalPadding;
   private int tabViewTextMinWidth;
@@ -203,6 +207,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     }
   }
 
+
   /**
    * Set the behavior of the Indicator scrolling feedback.
    *
@@ -242,6 +247,49 @@ public class SmartTabLayout extends HorizontalScrollView {
   public void setDefaultTabTextColor(ColorStateList colors) {
     tabViewTextColors = colors;
   }
+
+
+  /**
+   * Sets the colors used for styling the tab text. This will need to be called prior to calling
+   * {@link #setViewPager(android.support.v4.view.ViewPager)} otherwise it will not get set
+   *
+   * @param colorList List<Integer> to use for tab text
+   */
+
+  public void setDefaultTabTextColors(List<Integer> colorList) {
+
+    List<ColorStateList> colorStateLists = new ArrayList<>();
+
+    int[][] states = new int[][] {
+            new int[] {-android.R.attr.state_selected},  // unselected
+            new int[] { android.R.attr.state_selected}   // selected
+    };
+
+
+    int index = 0;
+    int color_default = colorList.get(0);
+
+    for(Integer color_current: colorList){
+
+      if(index==0){
+      }
+      else {
+        int[] colors = new int[]{
+                color_default,
+                color_current
+        };
+
+        ColorStateList colorStateList = new ColorStateList(states, colors);
+        colorStateLists.add(colorStateList);
+      }
+
+      index++;
+    }
+
+    this.listTabViewTextColors = colorStateLists;
+  }
+
+
 
   /**
    * Set the same weight for tab
@@ -339,6 +387,61 @@ public class SmartTabLayout extends HorizontalScrollView {
     return tabStrip.getChildAt(position);
   }
 
+
+
+
+  /**
+   * Create a default view to be used for tabs. This is called if a custom tab view is not set via
+   * {@link #setCustomTabView(int, int)}.
+   */
+  protected TextView createDefaultTabView(CharSequence title, int position) {
+
+    if(listTabViewTextColors==null || listTabViewTextColors.size()<2 ){
+      return createDefaultTabView(title);
+    }
+
+    ColorStateList tabViewTextColors = listTabViewTextColors.get(position);
+
+    TextView textView = new TextView(getContext());
+    textView.setGravity(Gravity.CENTER);
+    textView.setText(title);
+    textView.setTextColor(tabViewTextColors);
+    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabViewTextSize);
+    textView.setTypeface(Typeface.DEFAULT_BOLD);
+    textView.setLayoutParams(new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+    if (tabViewBackgroundResId != NO_ID) {
+      textView.setBackgroundResource(tabViewBackgroundResId);
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+      // If we're running on Honeycomb or newer, then we can use the Theme's
+      // selectableItemBackground to ensure that the View has a pressed state
+      TypedValue outValue = new TypedValue();
+      getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
+              outValue, true);
+      textView.setBackgroundResource(outValue.resourceId);
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+      // If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
+      textView.setAllCaps(tabViewTextAllCaps);
+    }
+
+    textView.setPadding(
+            tabViewTextHorizontalPadding, 0,
+            tabViewTextHorizontalPadding, 0);
+
+    if (tabViewTextMinWidth > 0) {
+      textView.setMinWidth(tabViewTextMinWidth);
+    }
+
+    return textView;
+  }
+
+
+
+
+
   /**
    * Create a default view to be used for tabs. This is called if a custom tab view is not set via
    * {@link #setCustomTabView(int, int)}.
@@ -386,7 +489,7 @@ public class SmartTabLayout extends HorizontalScrollView {
     for (int i = 0; i < adapter.getCount(); i++) {
 
       final View tabView = (tabProvider == null)
-          ? createDefaultTabView(adapter.getPageTitle(i))
+          ? createDefaultTabView(adapter.getPageTitle(i), i)
           : tabProvider.createTabView(tabStrip, i, adapter);
 
       if (tabView == null) {
