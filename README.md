@@ -291,7 +291,7 @@ limitations under the License.
 [demo7_gif]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/demo7.gif
 [demo_app]: https://play.google.com/store/apps/details?id=com.ogaclejapan.smarttablayout.demo&referrer=utm_source%3Dgithub
 [demo_icon]: https://raw.githubusercontent.com/ogaclejapan/SmartTabLayout/master/art/icon.png
-[googleplay_store_badge]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
+[googleplay_store_badge]: http://www.android.com/images/brand/get_it_on_play_logo_large.png
 [maven_central_badge_svg]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.smarttablayout/library/badge.svg?style=flat
 [maven_central_badge_app]: https://maven-badges.herokuapp.com/maven-central/com.ogaclejapan.smarttablayout/library
 [android_arsenal_badge_svg]: https://img.shields.io/badge/Android%20Arsenal-SmartTabLayout-brightgreen.svg?style=flat
