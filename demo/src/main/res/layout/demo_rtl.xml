@@ -1,15 +1,15 @@
 <com.ogaclejapan.smarttablayout.SmartTabLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@id/viewpagertab"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/tab_height"
-    app:stl_defaultTabTextColor="@color/white"
-    app:stl_defaultTabTextHorizontalPadding="24dp"
-    app:stl_indicatorColor="@color/accent"
-    app:stl_indicatorInterpolation="linear"
-    app:stl_indicatorThickness="3dp"
-    app:stl_underlineThickness="1dp"
-    />
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@id/viewpagertab"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/tab_height"
+  app:stl_defaultTabTextColor="@color/white"
+  app:stl_defaultTabTextHorizontalPadding="24dp"
+  app:stl_indicatorColor="@color/accent"
+  app:stl_indicatorInterpolation="linear"
+  app:stl_indicatorThickness="3dp"
+  app:stl_underlineThickness="1dp"
+  />
 
 

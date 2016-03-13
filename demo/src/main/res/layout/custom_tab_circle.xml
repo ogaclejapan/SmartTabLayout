@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <View
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="8dp"
-    android:layout_height="8dp"
-    android:layout_marginLeft="1dp"
-    android:layout_marginRight="1dp"
-    android:layout_gravity="center_vertical"
-    android:background="@drawable/custom_circle"
-    />
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="8dp"
+  android:layout_height="8dp"
+  android:layout_gravity="center_vertical"
+  android:layout_marginLeft="1dp"
+  android:layout_marginRight="1dp"
+  android:background="@drawable/custom_circle"
+  />
 
