@@ -52,7 +52,8 @@ public enum Demo {
       layout.setCustomTabView(new SmartTabLayout.TabProvider() {
         @Override
         public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
-          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon1, container, false);
+          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon1, container,
+              false);
           switch (position) {
             case 0:
               icon.setImageDrawable(res.getDrawable(R.drawable.ic_home_white_24dp));
@@ -96,7 +97,8 @@ public enum Demo {
       layout.setCustomTabView(new SmartTabLayout.TabProvider() {
         @Override
         public View createTabView(ViewGroup container, int position, PagerAdapter adapter) {
-          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon2, container, false);
+          ImageView icon = (ImageView) inflater.inflate(R.layout.custom_tab_icon2, container,
+              false);
           switch (position) {
             case 0:
               icon.setImageDrawable(res.getDrawable(R.drawable.ic_home_white_24dp));
@@ -116,6 +118,14 @@ public enum Demo {
           return icon;
         }
       });
+    }
+  },
+
+  CUSTOM_TAB_ICON_AND_TEXT(R.string.demo_title_custom_tab_icon_and_text,
+      R.layout.demo_custom_tab_icon_and_text) {
+    @Override
+    public int[] tabs() {
+      return tab3();
     }
   },
 

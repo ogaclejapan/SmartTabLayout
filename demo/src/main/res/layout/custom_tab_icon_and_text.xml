@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?attr/selectableItemBackground"
+  >
+
+  <android.support.v4.widget.Space
+    android:id="@+id/center_anchor"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_centerInParent="true"
+    />
+
+  <com.ogaclejapan.smarttablayout.demo.TintableImageView
+    android:id="@+id/custom_tab_icon"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_above="@id/center_anchor"
+    android:layout_centerHorizontal="true"
+    android:scaleType="center"
+    android:src="@drawable/custom_icon"
+    app:tint="@color/custom_tab_icon"
+    />
+
+  <TextView
+    android:id="@+id/custom_tab_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/center_anchor"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="2dp"
+    android:maxLines="1"
+    android:textColor="@color/custom_tab"
+    android:textSize="14sp"
+    />
+
+</RelativeLayout>
