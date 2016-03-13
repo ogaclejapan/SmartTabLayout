@@ -17,6 +17,7 @@
   <string name="demo_title_custom_tab_icons1">Custom Tab Icons 1</string>
   <string name="demo_title_custom_tab_icons2">Custom Tab Icons 2 (since 1.2~)</string>
   <string name="demo_title_custom_tab_icon_and_text">Custom Tab Icon and Text</string>
+  <string name="demo_title_custom_tab_icon_and_notification_mark">Custom Tab Icon and Notification Mark</string>
   <string name="demo_title_indicator_trick1">Indicator Thickness Trick 1</string>
   <string name="demo_title_indicator_trick2">Indicator Thickness Trick 2</string>
   <string name="demo_title_right_to_left">RTL support</string>

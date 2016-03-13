@@ -1,0 +1,52 @@
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  >
+
+  <LinearLayout
+    android:id="@+id/header"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    >
+
+    <android.support.v7.widget.Toolbar
+      android:id="@id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="?attr/actionBarSize"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+      >
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+      android:id="@id/tab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  </LinearLayout>
+
+  <android.support.v4.view.ViewPager
+    android:id="@id/viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/header"
+    />
+
+  <Button
+    android:id="@+id/test"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:text="Try notification mark"
+    />
+
+</RelativeLayout>

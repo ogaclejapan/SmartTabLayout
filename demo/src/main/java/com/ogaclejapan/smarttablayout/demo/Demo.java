@@ -129,6 +129,19 @@ public enum Demo {
     }
   },
 
+  CUSTOM_TAB_ICON_AND_NOTIFICATION_MARK(R.string.demo_title_custom_tab_icon_and_notification_mark,
+      R.layout.demo_custom_tab_icon_and_notification_mark) {
+    @Override
+    public int[] tabs() {
+      return tab3();
+    }
+
+    @Override
+    public void startActivity(Context context) {
+      DemoTabWithNotificationMarkActivity.startActivity(context, this);
+    }
+  },
+
   CUSTOM_TAB_MARGIN(R.string.demo_title_custom_tab_margin, R.layout.demo_custom_tab_margin),
 
   INDICATOR_TRICK1(R.string.demo_title_indicator_trick1, R.layout.demo_indicator_trick1),
