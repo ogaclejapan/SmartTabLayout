@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'license'
+apply plugin: 'com.github.hierynomus.license'
 
 android {
   compileSdkVersion COMPILE_SDK_VERSION as int
@@ -37,8 +37,7 @@ license {
     main.resources.srcDirs = android.sourceSets.main.resources.srcDirs
   }
 
-  ext.year = Calendar.getInstance().get(Calendar.YEAR)
-  ext.name = DEVELOPER_ID
+  excludes(["**/*.xml"])
 
 }
 
