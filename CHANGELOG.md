@@ -1,3 +1,7 @@
+# Version 1.6.1
+
+* Fixed issue with center last item in always in center tablayout #160
+
 # Version 1.6.0
 
 * Add `stl_indicatorWidth` to custom indicator's width #106
