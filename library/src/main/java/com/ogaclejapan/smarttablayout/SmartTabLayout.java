@@ -84,6 +84,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private TabProvider tabProvider;
   private InternalTabClickListener internalTabClickListener;
   private OnTabClickListener onTabClickListener;
+  private OnTabLongClickListener onTabLongClickListener;
   private boolean distributeEvenly;
 
   public SmartTabLayout(Context context) {
@@ -295,6 +296,11 @@ public class SmartTabLayout extends HorizontalScrollView {
     onTabClickListener = listener;
   }
 
+  public void setOnTabLongClickListener(OnTabLongClickListener listener) {
+    onTabLongClickListener = listener;
+
+  }
+
   /**
    * Set the custom layout to be inflated for the tab views.
    *
@@ -400,7 +406,8 @@ public class SmartTabLayout extends HorizontalScrollView {
       }
 
       if (internalTabClickListener != null) {
-        tabView.setOnClickListener(internalTabClickListener);
+          tabView.setOnClickListener(internalTabClickListener);
+          tabView.setOnLongClickListener(internalTabClickListener);
       }
 
       tabStrip.addView(tabView);
@@ -536,6 +543,16 @@ public class SmartTabLayout extends HorizontalScrollView {
     void onTabClicked(int position);
   }
 
+  public interface OnTabLongClickListener {
+
+    /**
+     * Called when a tab is long clicked.
+     *
+     * @param position tab's position
+     */
+    boolean onTabLongClicked(int position);
+  }
+
   /**
    * Create the custom tabs in the tab layout. Set with
    * {@link #setCustomTabView(com.ogaclejapan.smarttablayout.SmartTabLayout.TabProvider)}
@@ -634,7 +651,8 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   }
 
-  private class InternalTabClickListener implements OnClickListener {
+  private class InternalTabClickListener implements OnClickListener, OnLongClickListener {
+
     @Override
     public void onClick(View v) {
       for (int i = 0; i < tabStrip.getChildCount(); i++) {
@@ -647,6 +665,16 @@ public class SmartTabLayout extends HorizontalScrollView {
         }
       }
     }
-  }
 
+    @Override
+    public boolean onLongClick(View v) {
+      for (int i = 0; i < tabStrip.getChildCount(); i++) {
+        if (v == tabStrip.getChildAt(i)) {
+          viewPager.setCurrentItem(i);
+          return onTabLongClickListener != null && onTabLongClickListener.onTabLongClicked(i);
+        }
+      }
+      return false;
+    }
+  }
 }
