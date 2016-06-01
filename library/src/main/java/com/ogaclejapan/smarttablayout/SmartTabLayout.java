@@ -534,6 +534,7 @@ public class SmartTabLayout extends HorizontalScrollView {
      * @param position tab's position
      */
     void onTabClicked(int position);
+    boolean onTabLongClicked(int position);
   }
 
   /**
@@ -634,7 +635,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
   }
 
-  private class InternalTabClickListener implements OnClickListener {
+  private class InternalTabClickListener implements OnClickListener, OnLongClickListener {
     @Override
     public void onClick(View v) {
       for (int i = 0; i < tabStrip.getChildCount(); i++) {
@@ -646,6 +647,18 @@ public class SmartTabLayout extends HorizontalScrollView {
           return;
         }
       }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+      for (int i = 0; i < tabStrip.getChildCount(); i++) {
+        if (v == tabStrip.getChildAt(i)) {
+          if (onTabClickListener != null) {
+            return onTabClickListener.onTabLongClicked(i);
+          }
+        }
+      }
+      return false;
     }
   }
 
