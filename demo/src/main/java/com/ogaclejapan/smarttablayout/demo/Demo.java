@@ -25,6 +25,8 @@ public enum Demo {
     }
   },
 
+  AUTOSELECT_ON_SCROLL(R.string.demo_title_autoselect_on_scroll, R.layout.demo_autoselect_on_scroll),
+
   ALWAYS_IN_CENTER(R.string.demo_title_always_in_center, R.layout.demo_always_in_center),
 
   CUSTOM_TAB(R.string.demo_title_custom_tab_text, R.layout.demo_custom_tab_text),

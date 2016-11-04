@@ -41,5 +41,6 @@
       <enum name="auto_center" value="-1"/>
     </attr>
     <attr name="stl_drawDecorationAfterTab" format="boolean"/>
+    <attr name="stl_autoSelectOnScroll" format="boolean"/>
   </declare-styleable>
 </resources>
