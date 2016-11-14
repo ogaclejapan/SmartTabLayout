@@ -18,6 +18,8 @@ Try out the sample application on the Play Store.
 
 [![Get it on Google Play][googleplay_store_badge]][demo_app]
 
+# Looking for iOS ?
+ check [WormTabStrip](https://github.com/EzimetYusup/WormTabStrip) out.
 # Usage
 
 _(For a working implementation of this project see the demo/ folder.)_
