@@ -15,10 +15,10 @@
  */
 package com.ogaclejapan.smarttablayout.utils.v4;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.collection.SparseArrayCompat;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;

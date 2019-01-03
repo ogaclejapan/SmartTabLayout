@@ -1,3 +1,4 @@
+This Forked Version is Migrated to AndroidX rest Everything is Same.
 # SmartTabLayout
 [![Maven Central][maven_central_badge_svg]][maven_central_badge_app] [![Android Arsenal][android_arsenal_badge_svg]][android_arsenal_badge_link] [![Android Weekly][android_weekly_badge_svg]][android_weekly_badge_link]
 
@@ -194,7 +195,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
 ```
 
-# How to use the utility
+# How to use the utilityApp
 
 Utility has two types available to suit the Android support library.
 
@@ -263,6 +264,7 @@ public void onPageSelected(int position) {
 
 * [Qiitanium][qiitanium]
 * [Ameba](https://play.google.com/store/apps/details?id=jp.ameba&hl=ja)
+* [Torrentvilla Lite](https://play.google.com/store/apps/details?id=torrentvillalite.romreviewer.com&hl=en_IN)
 
 # Looking for iOS ?
  Check [WormTabStrip](https://github.com/EzimetYusup/WormTabStrip) out.

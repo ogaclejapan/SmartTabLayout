@@ -2,7 +2,7 @@ package com.ogaclejapan.smarttablayout.demo;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

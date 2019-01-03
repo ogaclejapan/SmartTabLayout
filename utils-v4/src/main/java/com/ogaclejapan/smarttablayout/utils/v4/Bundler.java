@@ -19,7 +19,7 @@ import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Size;
 import android.util.SizeF;
 import android.util.SparseArray;

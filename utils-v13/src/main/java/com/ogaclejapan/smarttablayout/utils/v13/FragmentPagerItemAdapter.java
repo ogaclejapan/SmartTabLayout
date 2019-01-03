@@ -17,8 +17,8 @@ package com.ogaclejapan.smarttablayout.utils.v13;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.legacy.app.FragmentPagerAdapter;
+import androidx.collection.SparseArrayCompat;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;

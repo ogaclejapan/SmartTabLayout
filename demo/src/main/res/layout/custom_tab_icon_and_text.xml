@@ -7,7 +7,7 @@
   android:background="?attr/selectableItemBackground"
   >
 
-  <android.support.v4.widget.Space
+  <androidx.legacy.widget.Space
     android:id="@+id/center_anchor"
     android:layout_width="0dp"
     android:layout_height="0dp"

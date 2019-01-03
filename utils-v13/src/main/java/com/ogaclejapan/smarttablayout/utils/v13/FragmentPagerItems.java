@@ -18,7 +18,7 @@ package com.ogaclejapan.smarttablayout.utils.v13;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.ogaclejapan.smarttablayout.utils.PagerItems;
 

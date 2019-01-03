@@ -3,7 +3,7 @@
 
   <string name="app_name">SmartTabLayout</string>
   <string name="app_github">GitHub</string>
-  <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/SmartTabLayout]]></string>
+  <string name="app_github_url"><![CDATA[https://github.com/Sanchit43/SmartTabLayout]]></string>
   <string name="action_settings">Settings</string>
 
   <string name="demo_title_basic">Basic</string>

@@ -5,10 +5,10 @@ apply plugin: 'com.github.hierynomus.license'
 
 android {
   compileSdkVersion COMPILE_SDK_VERSION as int
-  buildToolsVersion BUILD_TOOLS_VERSION
+  buildToolsVersion '28.0.3'
 
   defaultConfig {
-    minSdkVersion 13
+    minSdkVersion 16
     targetSdkVersion COMPILE_SDK_VERSION as int
     versionCode VERSION_CODE as int
     versionName VERSION_NAME
@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-  compile "com.android.support:support-v4:22.2.1"
-  compile 'com.android.support:support-v13:22.2.1'
+  implementation "androidx.legacy:legacy-support-v4:1.0.0"
+  implementation 'androidx.legacy:legacy-support-v13:1.0.0'
 }
 
 license {
