@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
 
+@Deprecated
 public class ViewPagerItemAdapter extends PagerAdapter {
 
   private final ViewPagerItems pages;

@@ -21,6 +21,7 @@ import android.os.Bundle;
 
 import com.ogaclejapan.smarttablayout.utils.PagerItem;
 
+@Deprecated
 public class FragmentPagerItem extends PagerItem {
 
   private static final String TAG = "FragmentPagerItem";

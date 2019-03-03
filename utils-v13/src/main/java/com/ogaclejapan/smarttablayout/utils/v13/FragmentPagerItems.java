@@ -22,6 +22,7 @@ import android.support.annotation.StringRes;
 
 import com.ogaclejapan.smarttablayout.utils.PagerItems;
 
+@Deprecated
 public class FragmentPagerItems extends PagerItems<FragmentPagerItem> {
 
   public FragmentPagerItems(Context context) {

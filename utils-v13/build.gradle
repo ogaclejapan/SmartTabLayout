@@ -1,14 +1,12 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.github.hierynomus.license'
 
 android {
   compileSdkVersion COMPILE_SDK_VERSION as int
-  buildToolsVersion BUILD_TOOLS_VERSION
 
   defaultConfig {
-    minSdkVersion 13
+    minSdkVersion 14
     targetSdkVersion COMPILE_SDK_VERSION as int
     versionCode VERSION_CODE as int
     versionName VERSION_NAME
@@ -20,14 +18,11 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
-  lintOptions {
-    abortOnError false
-  }
 }
 
 dependencies {
-  compile "com.android.support:support-v4:22.2.1"
-  compile 'com.android.support:support-v13:22.2.1'
+  implementation "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+  implementation "com.android.support:support-v13:${ANDROID_SUPPORT_VERSION}"
 }
 
 license {
@@ -42,135 +37,5 @@ license {
 
 }
 
-afterEvaluate { project ->
-
-  task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-  }
-
-  task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.srcDirs
-    options {
-      links "http://docs.oracle.com/javase/7/docs/api/"
-      linksOffline "http://d.android.com/reference", System.getenv("ANDROID_HOME") + "/docs/reference"
-    }
-    classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-
-  }
-
-  task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-  }
-
-  artifacts {
-    archives javadocJar
-    archives sourcesJar
-  }
-
-}
-
-install {
-  repositories.mavenInstaller {
-    // This generates POM.xml with proper parameters
-    pom {
-      project {
-        packaging 'aar'
-
-        name ARTIFACT_NAME
-        description ARTIFACT_DESCRIPTION
-        url SITE_URL
-
-        licenses {
-          license {
-            name LICENCE_NAME
-            url LICENCE_URL
-            distribution LICENCE_DIST
-          }
-        }
-
-        developers {
-          developer {
-            id DEVELOPER_ID
-            name DEVELOPER_NAME
-            email DEVELOPER_EMAIL
-          }
-        }
-        issueManagement {
-          system ISSUE_SYSTEM
-          url ISSUE_URL
-        }
-
-        scm {
-          connection SCM_CONNECTION
-          developerConnection SCM_DEV_CONNECTION
-          url SCM_URL
-
-        }
-      }
-    }
-  }
-}
-
-def getNexusUser() {
-  return hasProperty('NEXUS_USER') ? NEXUS_USER : ""
-}
-
-def getNexusPassword() {
-  return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-}
-
-def getBintrayUser() {
-  return hasProperty('BINTRAY_USER') ? BINTRAY_USER : ""
-}
-
-def getBintrayApiKey() {
-  return hasProperty('BINTRAY_APIKEY') ? BINTRAY_APIKEY : ""
-}
-
-def getGpgPassphrase() {
-  return hasProperty('BINTRAY_GPG_PASSPHRASE') ? BINTRAY_GPG_PASSPHRASE : ""
-}
-
-bintray {
-
-  user = bintrayUser
-  key = bintrayApiKey
-
-  configurations = ['archives']
-
-  dryRun = false
-  publish = true
-
-  pkg {
-    repo = "maven"
-    name = ARTIFACT_NAME + "-V13Utils"
-    desc = ARTIFACT_DESCRIPTION
-    websiteUrl = SITE_URL
-    issueTrackerUrl = ISSUE_URL
-    vcsUrl = SCM_URL
-    licenses = ["Apache-2.0"]
-    labels = ['android']
-    publicDownloadNumbers = true
-
-    version {
-      gpg {
-        sign = true
-        passphrase = gpgPassphrase
-      }
-
-      mavenCentralSync {
-        sync = true
-        user = nexusUser
-        password = nexusPassword
-        close = '1'
-      }
-
-    }
-
-  }
-
-}
+pkginfo.name = ARTIFACT_NAME + '-V13Utils'
+apply from: "${project.rootDir}/publish.gradle"

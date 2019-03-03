@@ -19,6 +19,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
+@Deprecated
 public abstract class PagerItems<T extends PagerItem> extends ArrayList<T> {
 
   private final Context context;

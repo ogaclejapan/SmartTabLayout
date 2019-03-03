@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+@Deprecated
 public class ViewPagerItem extends PagerItem {
 
   private final int resource;

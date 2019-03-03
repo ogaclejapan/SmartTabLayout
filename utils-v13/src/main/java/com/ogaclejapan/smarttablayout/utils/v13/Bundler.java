@@ -27,6 +27,7 @@ import android.util.SparseArray;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Deprecated
 public class Bundler {
 
   private final Bundle bundle;

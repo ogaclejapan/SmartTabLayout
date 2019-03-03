@@ -19,6 +19,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 
+@Deprecated
 public class ViewPagerItems extends PagerItems<ViewPagerItem> {
 
   public ViewPagerItems(Context context) {

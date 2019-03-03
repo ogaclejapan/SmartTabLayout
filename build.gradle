@@ -1,18 +1,28 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext {
+  // Package information for bintray
+  pkginfo = [name       : ARTIFACT_NAME,
+             description: ARTIFACT_DESCRIPTION,
+             site       : SITE_URL,
+             issue      : ISSUE_URL,
+             vcs        : SCM_URL]
+}
 
 buildscript {
   repositories {
+    google()
     mavenCentral()
-    jcenter()
     maven {
       url "https://plugins.gradle.org/m2/"
     }
+    jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.2'
-    classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
-    classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.13.1'
+    classpath 'com.android.tools.build:gradle:3.3.1'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
+    classpath 'gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:0.15.0'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -25,7 +35,12 @@ allprojects {
   group = GROUP
 
   repositories {
+    google()
     mavenCentral()
     jcenter()
   }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
 }

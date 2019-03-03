@@ -2,10 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
   compileSdkVersion COMPILE_SDK_VERSION as int
-  buildToolsVersion BUILD_TOOLS_VERSION
 
   defaultConfig {
-    minSdkVersion 10
+    minSdkVersion 14
     targetSdkVersion COMPILE_SDK_VERSION as int
     versionCode VERSION_CODE as int
     versionName VERSION_NAME
@@ -36,7 +35,7 @@ android {
 }
 
 dependencies {
-  compile project(':library')
-  compile project(':utils-v4')
-  compile 'com.android.support:appcompat-v7:22.2.1'
+  implementation project(':library')
+  implementation project(':utils-v4')
+  implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
 }

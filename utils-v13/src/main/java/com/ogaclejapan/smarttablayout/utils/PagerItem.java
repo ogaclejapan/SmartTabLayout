@@ -15,6 +15,7 @@
  */
 package com.ogaclejapan.smarttablayout.utils;
 
+@Deprecated
 public abstract class PagerItem {
 
   protected static final float DEFAULT_WIDTH = 1.f;

@@ -1,0 +1,106 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+  failOnError false
+  source = android.sourceSets.main.java.sourceFiles
+  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives sourcesJar
+  archives javadocJar
+}
+
+install {
+  repositories.mavenInstaller {
+    // This generates POM.xml with proper parameters
+    pom {
+      project {
+        packaging 'aar'
+
+        name ARTIFACT_NAME
+        description ARTIFACT_DESCRIPTION
+        url SITE_URL
+
+        licenses {
+          license {
+            name LICENCE_NAME
+            url LICENCE_URL
+            distribution LICENCE_DIST
+          }
+        }
+
+        developers {
+          developer {
+            id DEVELOPER_ID
+            name DEVELOPER_NAME
+            email DEVELOPER_EMAIL
+          }
+        }
+        issueManagement {
+          system ISSUE_SYSTEM
+          url ISSUE_URL
+        }
+
+        scm {
+          connection SCM_CONNECTION
+          developerConnection SCM_DEV_CONNECTION
+          url SCM_URL
+
+        }
+      }
+    }
+  }
+}
+
+bintray {
+
+  user = findProperty('BINTRAY_USER')
+  key = findProperty('BINTRAY_APIKEY')
+
+  configurations = ['archives']
+
+  dryRun = false
+  publish = true
+
+  pkg {
+    repo = "maven"
+    name = pkginfo.name
+    desc = pkginfo.description
+    websiteUrl = pkginfo.site
+    issueTrackerUrl = pkginfo.issue
+    vcsUrl = pkginfo.vcs
+    licenses = ["Apache-2.0"]
+    labels = ['android']
+    publicDownloadNumbers = true
+
+    version {
+      gpg {
+        sign = true
+        passphrase = findProperty('BINTRAY_GPG_PASSPHRASE')
+      }
+
+      mavenCentralSync {
+        sync = true
+        user = findProperty('NEXUS_USER')
+        password = findProperty('NEXUS_PASSWORD')
+        close = '1'
+      }
+    }
+  }
+}
