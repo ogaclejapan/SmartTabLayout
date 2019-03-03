@@ -27,13 +27,13 @@ Add the dependency to your build.gradle.
 
 ```
 dependencies {
-    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
 
     //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar'
 
-    //Optional: see how to use the utility.
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.6.1@aar'
+    //Deprecated since 1.7.0
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.7.0@aar'
 }
 ```
 
@@ -259,10 +259,6 @@ public void onPageSelected(int position) {
 
 *__Notes:__ If using fragment inside a ViewPager, Must be use [Fragment#getChildFragmentManager()](http://developer.android.com/reference/android/support/v4/app/Fragment.html#getChildFragmentManager).*
 
-# Apps Using SmartTabLayout
-
-* [Qiitanium][qiitanium]
-* [Ameba](https://play.google.com/store/apps/details?id=jp.ameba&hl=ja)
 
 # Looking for iOS ?
  Check [WormTabStrip](https://github.com/EzimetYusup/WormTabStrip) out.
