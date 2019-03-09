@@ -26,6 +26,15 @@ _(For a working implementation of this project see the demo/ folder.)_
 Add the dependency to your build.gradle.
 
 ```
+// For androidx (1.0.0)
+dependencies {
+    compile 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+
+    //Optional: see how to use the utility.
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+}
+
+// For legacy android support library (28.0.0)
 dependencies {
     compile 'com.ogaclejapan.smarttablayout:library:1.7.0@aar'
 
@@ -73,7 +82,7 @@ This should usually be placed above the ViewPager it represents.
     app:stl_drawDecorationAfterTab="false"
     />
 
-<android.support.v4.view.ViewPager
+<androidx.viewpager.widget.ViewPager
     android:id="@+id/viewpager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -198,8 +207,8 @@ public class SmartTabLayout extends HorizontalScrollView {
 
 Utility has two types available to suit the Android support library.
 
-* utils-v4 library contains the PagerAdapter implementation class for _android.support.v4.app.Fragment_
-* utils-v13 library contains the PagerAdapter implementation class for _android.app.Fragment_
+* utils-v4 library contains the PagerAdapter implementation class for _androidx.fragment.app.Fragment_
+* (Deprecated) utils-v13 library contains the PagerAdapter implementation class for _android.app.Fragment_
 
 The two libraries have different Android support libraries that depend,
 but implemented functionality is the same.
@@ -257,7 +266,7 @@ public void onPageSelected(int position) {
 
 ```
 
-*__Notes:__ If using fragment inside a ViewPager, Must be use [Fragment#getChildFragmentManager()](http://developer.android.com/reference/android/support/v4/app/Fragment.html#getChildFragmentManager).*
+*__Notes:__ If using fragment inside a ViewPager, Must be use [Fragment#getChildFragmentManager()](https://developer.android.com/reference/androidx/fragment/app/Fragment.html#getChildFragmentManager).*
 
 
 # Looking for iOS ?

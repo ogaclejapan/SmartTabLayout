@@ -22,7 +22,8 @@ android {
 }
 
 dependencies {
-  implementation "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+  implementation "androidx.viewpager:viewpager:${ANDROIDX_BASE_VERSION}"
+  implementation "androidx.fragment:fragment:${ANDROIDX_BASE_VERSION}"
 }
 
 license {

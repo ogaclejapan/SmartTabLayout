@@ -37,5 +37,5 @@ android {
 dependencies {
   implementation project(':library')
   implementation project(':utils-v4')
-  implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
+  implementation "androidx.appcompat:appcompat:${ANDROIDX_APPCOMPAT_VERSION}"
 }

@@ -19,13 +19,14 @@ import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.util.Size;
 import android.util.SizeF;
 import android.util.SparseArray;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
 
 public class Bundler {
 
@@ -56,6 +57,7 @@ public class Bundler {
    * Inserts all mappings from the given Bundle into this Bundle.
    *
    * @param bundle a Bundle
+   * @return this
    */
   public Bundler putAll(Bundle bundle) {
     this.bundle.putAll(bundle);
@@ -66,8 +68,9 @@ public class Bundler {
    * Inserts a byte value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a byte
+   * @return this
    */
   public Bundler putByte(String key, byte value) {
     bundle.putByte(key, value);
@@ -78,8 +81,9 @@ public class Bundler {
    * Inserts a char value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a char, or null
+   * @return this
    */
   public Bundler putChar(String key, char value) {
     bundle.putChar(key, value);
@@ -90,8 +94,9 @@ public class Bundler {
    * Inserts a short value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a short
+   * @return this
    */
   public Bundler putShort(String key, short value) {
     bundle.putShort(key, value);
@@ -102,8 +107,9 @@ public class Bundler {
    * Inserts a float value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a float
+   * @return this
    */
   public Bundler putFloat(String key, float value) {
     bundle.putFloat(key, value);
@@ -114,8 +120,9 @@ public class Bundler {
    * Inserts a CharSequence value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a CharSequence, or null
+   * @return this
    */
   public Bundler putCharSequence(String key, CharSequence value) {
     bundle.putCharSequence(key, value);
@@ -126,8 +133,9 @@ public class Bundler {
    * Inserts a Parcelable value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a Parcelable object, or null
+   * @return this
    */
   public Bundler putParcelable(String key, Parcelable value) {
     bundle.putParcelable(key, value);
@@ -138,8 +146,9 @@ public class Bundler {
    * Inserts a Size value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a Size object, or null
+   * @return this
    */
   @TargetApi(21)
   public Bundler putSize(String key, Size value) {
@@ -151,8 +160,9 @@ public class Bundler {
    * Inserts a SizeF value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a SizeF object, or null
+   * @return this
    */
   @TargetApi(21)
   public Bundler putSizeF(String key, SizeF value) {
@@ -165,8 +175,9 @@ public class Bundler {
    * replacing any existing value for the given key.  Either key or value may
    * be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an array of Parcelable objects, or null
+   * @return this
    */
   public Bundler putParcelableArray(String key, Parcelable[] value) {
     bundle.putParcelableArray(key, value);
@@ -178,8 +189,9 @@ public class Bundler {
    * replacing any existing value for the given key.  Either key or value may
    * be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an ArrayList of Parcelable objects, or null
+   * @return this
    */
   public Bundler putParcelableArrayList(String key,
       ArrayList<? extends Parcelable> value) {
@@ -192,8 +204,9 @@ public class Bundler {
    * Bundle, replacing any existing value for the given key.  Either key
    * or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a SparseArray of Parcelable objects, or null
+   * @return this
    */
   public Bundler putSparseParcelableArray(String key,
       SparseArray<? extends Parcelable> value) {
@@ -205,8 +218,9 @@ public class Bundler {
    * Inserts an ArrayList<Integer> value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an ArrayList<Integer> object, or null
+   * @return this
    */
   public Bundler putIntegerArrayList(String key, ArrayList<Integer> value) {
     bundle.putIntegerArrayList(key, value);
@@ -217,8 +231,9 @@ public class Bundler {
    * Inserts an ArrayList<String> value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an ArrayList<String> object, or null
+   * @return this
    */
   public Bundler putStringArrayList(String key, ArrayList<String> value) {
     bundle.putStringArrayList(key, value);
@@ -229,8 +244,9 @@ public class Bundler {
    * Inserts an ArrayList<CharSequence> value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an ArrayList<CharSequence> object, or null
+   * @return this
    */
   @TargetApi(8)
   public Bundler putCharSequenceArrayList(String key, ArrayList<CharSequence> value) {
@@ -242,8 +258,9 @@ public class Bundler {
    * Inserts a Serializable value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a Serializable object, or null
+   * @return this
    */
   public Bundler putSerializable(String key, Serializable value) {
     bundle.putSerializable(key, value);
@@ -254,8 +271,9 @@ public class Bundler {
    * Inserts a byte array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a byte array object, or null
+   * @return this
    */
   public Bundler putByteArray(String key, byte[] value) {
     bundle.putByteArray(key, value);
@@ -266,8 +284,9 @@ public class Bundler {
    * Inserts a short array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a short array object, or null
+   * @return this
    */
   public Bundler putShortArray(String key, short[] value) {
     bundle.putShortArray(key, value);
@@ -278,8 +297,9 @@ public class Bundler {
    * Inserts a char array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a char array object, or null
+   * @return this
    */
   public Bundler putCharArray(String key, char[] value) {
     bundle.putCharArray(key, value);
@@ -290,8 +310,9 @@ public class Bundler {
    * Inserts a float array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a float array object, or null
+   * @return this
    */
   public Bundler putFloatArray(String key, float[] value) {
     bundle.putFloatArray(key, value);
@@ -302,8 +323,9 @@ public class Bundler {
    * Inserts a CharSequence array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a CharSequence array object, or null
+   * @return this
    */
   @TargetApi(8)
   public Bundler putCharSequenceArray(String key, CharSequence[] value) {
@@ -315,8 +337,9 @@ public class Bundler {
    * Inserts a Bundle value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a Bundle object, or null
+   * @return this
    */
   public Bundler putBundle(String key, Bundle value) {
     bundle.putBundle(key, value);
@@ -334,8 +357,9 @@ public class Bundler {
    * when your process goes away, and no longer usable, even if a new process is
    * created for you later on.</p>
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an IBinder object, or null
+   * @return this
    */
   @TargetApi(18)
   public Bundler putBinder(String key, IBinder value) {
@@ -347,8 +371,9 @@ public class Bundler {
    * Inserts a Boolean value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a Boolean, or null
+   * @return this
    */
   public Bundler putBoolean(String key, boolean value) {
     bundle.putBoolean(key, value);
@@ -359,8 +384,9 @@ public class Bundler {
    * Inserts an int value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an int, or null
+   * @return this
    */
   public Bundler putInt(String key, int value) {
     bundle.putInt(key, value);
@@ -371,8 +397,9 @@ public class Bundler {
    * Inserts a long value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a long
+   * @return this
    */
   public Bundler putLong(String key, long value) {
     bundle.putLong(key, value);
@@ -383,8 +410,9 @@ public class Bundler {
    * Inserts a double value into the mapping of this Bundle, replacing
    * any existing value for the given key.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a double
+   * @return this
    */
   public Bundler putDouble(String key, double value) {
     bundle.putDouble(key, value);
@@ -395,8 +423,9 @@ public class Bundler {
    * Inserts a String value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a String, or null
+   * @return this
    */
   public Bundler putString(String key, String value) {
     bundle.putString(key, value);
@@ -407,8 +436,9 @@ public class Bundler {
    * Inserts a boolean array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a boolean array object, or null
+   * @return this
    */
   public Bundler putBooleanArray(String key, boolean[] value) {
     bundle.putBooleanArray(key, value);
@@ -419,8 +449,9 @@ public class Bundler {
    * Inserts an int array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value an int array object, or null
+   * @return this
    */
   public Bundler putIntArray(String key, int[] value) {
     bundle.putIntArray(key, value);
@@ -431,8 +462,9 @@ public class Bundler {
    * Inserts a long array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a long array object, or null
+   * @return this
    */
   public Bundler putLongArray(String key, long[] value) {
     bundle.putLongArray(key, value);
@@ -443,8 +475,9 @@ public class Bundler {
    * Inserts a double array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a double array object, or null
+   * @return this
    */
   public Bundler putDoubleArray(String key, double[] value) {
     bundle.putDoubleArray(key, value);
@@ -455,8 +488,9 @@ public class Bundler {
    * Inserts a String array value into the mapping of this Bundle, replacing
    * any existing value for the given key.  Either key or value may be null.
    *
-   * @param key   a String, or null
+   * @param key a String, or null
    * @param value a String array object, or null
+   * @return this
    */
   public Bundler putStringArray(String key, String[] value) {
     bundle.putStringArray(key, value);

@@ -15,13 +15,15 @@
  */
 package com.ogaclejapan.smarttablayout.utils;
 
-import android.support.v4.util.SparseArrayCompat;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.NonNull;
+import androidx.collection.SparseArrayCompat;
+import androidx.viewpager.widget.PagerAdapter;
 
 public class ViewPagerItemAdapter extends PagerAdapter {
 
@@ -40,8 +42,9 @@ public class ViewPagerItemAdapter extends PagerAdapter {
     return pages.size();
   }
 
+  @NonNull
   @Override
-  public Object instantiateItem(ViewGroup container, int position) {
+  public Object instantiateItem(@NonNull ViewGroup container, int position) {
     View view = getPagerItem(position).initiate(inflater, container);
     container.addView(view);
     holder.put(position, new WeakReference<View>(view));
@@ -49,13 +52,13 @@ public class ViewPagerItemAdapter extends PagerAdapter {
   }
 
   @Override
-  public void destroyItem(ViewGroup container, int position, Object object) {
+  public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
     holder.remove(position);
     container.removeView((View) object);
   }
 
   @Override
-  public boolean isViewFromObject(View view, Object object) {
+  public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
     return object == view;
   }
 

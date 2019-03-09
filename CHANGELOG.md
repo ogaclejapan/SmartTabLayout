@@ -1,3 +1,8 @@
+# Version 2.0.0
+
+* Migrate to androidx 1.0.0
+* Remove util-v13 library
+
 # Version 1.7.0
 
 * Update support library version to 28.0.0
