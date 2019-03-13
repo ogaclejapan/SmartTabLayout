@@ -10,6 +10,7 @@
   <string name="demo_title_basic2">Basic(Title Offset Auto Center)</string>
   <string name="demo_title_smart_indicator">Smart Indicator</string>
   <string name="demo_title_distribute_evenly">Distribute Evenly</string>
+  <string name="demo_title_autoselect_on_scroll">Auto Select On Scroll</string>
   <string name="demo_title_always_in_center">Always In Center</string>
   <string name="demo_title_custom_tab_text">Custom Tab Text</string>
   <string name="demo_title_custom_tab_margin">Custom Tab Margin (since 1.2~)</string>
