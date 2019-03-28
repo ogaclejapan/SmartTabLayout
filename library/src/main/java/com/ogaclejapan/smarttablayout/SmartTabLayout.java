@@ -184,15 +184,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    if (tabStrip.isIndicatorAlwaysInCenter() && tabStrip.getChildCount() > 0) {
-      View firstTab = tabStrip.getChildAt(0);
-      View lastTab = tabStrip.getChildAt(tabStrip.getChildCount() - 1);
-      int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
-      int end = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
-      tabStrip.setMinimumWidth(tabStrip.getMeasuredWidth());
-      ViewCompat.setPaddingRelative(this, start, getPaddingTop(), end, getPaddingBottom());
-      setClipToPadding(false);
-    }
+    layoutTab();
   }
 
   @Override
@@ -410,6 +402,24 @@ public class SmartTabLayout extends HorizontalScrollView {
         tabView.setSelected(true);
       }
 
+    }
+    layoutTab();
+  }
+
+  private void layoutTab() {
+    int w = getMeasuredWidth();
+    if (tabStrip.isIndicatorAlwaysInCenter() && tabStrip.getChildCount() > 0 && w > 0) {
+      View firstTab = tabStrip.getChildAt(0);
+      View lastTab = tabStrip.getChildAt(tabStrip.getChildCount() - 1);
+      measureChild(firstTab, MeasureSpec.makeMeasureSpec(tabStrip.getMeasuredWidth(), MeasureSpec.AT_MOST)
+              , MeasureSpec.makeMeasureSpec(tabStrip.getMeasuredHeight(), MeasureSpec.AT_MOST));
+      measureChild(lastTab, MeasureSpec.makeMeasureSpec(tabStrip.getMeasuredWidth(), MeasureSpec.AT_MOST)
+              , MeasureSpec.makeMeasureSpec(tabStrip.getMeasuredHeight(), MeasureSpec.AT_MOST));
+      int start = (w - Utils.getMeasuredWidth(firstTab)) / 2 - Utils.getMarginStart(firstTab);
+      int end = (w - Utils.getMeasuredWidth(lastTab)) / 2 - Utils.getMarginEnd(lastTab);
+      tabStrip.setMinimumWidth(tabStrip.getMeasuredWidth());
+      ViewCompat.setPaddingRelative(this, start, getPaddingTop(), end, getPaddingBottom());
+      setClipToPadding(false);
     }
   }
 
