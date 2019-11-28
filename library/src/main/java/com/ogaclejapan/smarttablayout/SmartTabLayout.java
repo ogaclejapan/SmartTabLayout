@@ -118,29 +118,29 @@ public class SmartTabLayout extends HorizontalScrollView {
     int titleOffset = (int) (TITLE_OFFSET_DIPS * density);
 
     TypedArray a = context.obtainStyledAttributes(
-        attrs, R.styleable.stl_SmartTabLayout, defStyle, 0);
+            attrs, R.styleable.SmartTabLayout, defStyle, 0);
     tabBackgroundResId = a.getResourceId(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabBackground, tabBackgroundResId);
+            R.styleable.SmartTabLayout_stl_defaultTabBackground, tabBackgroundResId);
     textAllCaps = a.getBoolean(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
+            R.styleable.SmartTabLayout_stl_defaultTabTextAllCaps, textAllCaps);
     textColors = a.getColorStateList(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabTextColor);
+            R.styleable.SmartTabLayout_stl_defaultTabTextColor);
     textSize = a.getDimension(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabTextSize, textSize);
+            R.styleable.SmartTabLayout_stl_defaultTabTextSize, textSize);
     textHorizontalPadding = a.getDimensionPixelSize(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
+            R.styleable.SmartTabLayout_stl_defaultTabTextHorizontalPadding, textHorizontalPadding);
     textMinWidth = a.getDimensionPixelSize(
-        R.styleable.stl_SmartTabLayout_stl_defaultTabTextMinWidth, textMinWidth);
+            R.styleable.SmartTabLayout_stl_defaultTabTextMinWidth, textMinWidth);
     customTabLayoutId = a.getResourceId(
-        R.styleable.stl_SmartTabLayout_stl_customTabTextLayoutId, customTabLayoutId);
+            R.styleable.SmartTabLayout_stl_customTabTextLayoutId, customTabLayoutId);
     customTabTextViewId = a.getResourceId(
-        R.styleable.stl_SmartTabLayout_stl_customTabTextViewId, customTabTextViewId);
+            R.styleable.SmartTabLayout_stl_customTabTextViewId, customTabTextViewId);
     distributeEvenly = a.getBoolean(
-        R.styleable.stl_SmartTabLayout_stl_distributeEvenly, distributeEvenly);
+            R.styleable.SmartTabLayout_stl_distributeEvenly, distributeEvenly);
     clickable = a.getBoolean(
-        R.styleable.stl_SmartTabLayout_stl_clickable, clickable);
+            R.styleable.SmartTabLayout_stl_clickable, clickable);
     titleOffset = a.getLayoutDimension(
-        R.styleable.stl_SmartTabLayout_stl_titleOffset, titleOffset);
+            R.styleable.SmartTabLayout_stl_titleOffset, titleOffset);
     a.recycle();
 
     this.titleOffset = titleOffset;

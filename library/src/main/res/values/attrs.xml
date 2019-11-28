@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="stl_SmartTabLayout">
+  <declare-styleable name="SmartTabLayout">
     <attr name="stl_indicatorAlwaysInCenter" format="boolean"/>
     <attr name="stl_indicatorWithoutPadding" format="boolean"/>
     <attr name="stl_indicatorInFront" format="boolean"/>
