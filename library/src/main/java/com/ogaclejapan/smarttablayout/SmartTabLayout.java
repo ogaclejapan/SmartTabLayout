@@ -19,6 +19,7 @@ package com.ogaclejapan.smarttablayout;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -85,6 +86,7 @@ public class SmartTabLayout extends HorizontalScrollView {
   private TabProvider tabProvider;
   private InternalTabClickListener internalTabClickListener;
   private OnTabClickListener onTabClickListener;
+  private DataSetObserver mDataSetObserver;
   private boolean distributeEvenly;
 
   public SmartTabLayout(Context context) {
@@ -320,11 +322,16 @@ public class SmartTabLayout extends HorizontalScrollView {
    * (number of tabs and tab titles) does not change after this call has been made.
    */
   public void setViewPager(ViewPager viewPager) {
-    tabStrip.removeAllViews();
-
     this.viewPager = viewPager;
     if (viewPager != null && viewPager.getAdapter() != null) {
       viewPager.addOnPageChangeListener(new InternalViewPagerListener());
+
+      if(mDataSetObserver !=null)
+           viewPager.getAdapter().unregisterDataSetObserver(mDataSetObserver);
+      if(mDataSetObserver == null){
+        mDataSetObserver = new TabDataSetObserver();
+      }
+      viewPager.getAdapter().registerDataSetObserver(mDataSetObserver);
       populateTabStrip();
     }
   }
@@ -382,6 +389,8 @@ public class SmartTabLayout extends HorizontalScrollView {
   }
 
   private void populateTabStrip() {
+    tabStrip.removeAllViews();
+
     final PagerAdapter adapter = viewPager.getAdapter();
 
     for (int i = 0; i < adapter.getCount(); i++) {
@@ -548,6 +557,23 @@ public class SmartTabLayout extends HorizontalScrollView {
      */
     View createTabView(ViewGroup container, int position, PagerAdapter adapter);
 
+  }
+
+  /**
+   * When adapter data is change,callback invoke
+   * {@link android.database.DataSetObservable}
+   */
+  private  class TabDataSetObserver extends DataSetObserver {
+
+    @Override
+    public void onChanged() {
+      populateTabStrip();
+    }
+
+    @Override
+    public void onInvalidated() {
+      populateTabStrip();
+    }
   }
 
   private static class SimpleTabProvider implements TabProvider {
